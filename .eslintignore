@@ -1,0 +1,7 @@
+/build
+/dist
+/node_modules
+/src/static
+/src/typings
+.eslintrc.cjs
+webpack.config.cjs

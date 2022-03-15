@@ -1,0 +1,12 @@
+{
+  "signal": "SIGHUP",
+  "ext": "js,json",
+  "watch": [
+    ".env",
+    ".eslintrc.cjs",
+    ".eslintignore",
+    ".browserslistrc",
+    "build"
+  ],
+  "exec": "NODE_ENV=development node ./build/bin/dev.js"
+}

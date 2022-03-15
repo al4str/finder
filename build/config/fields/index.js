@@ -1,0 +1,11 @@
+export { configGetContext } from './context.js';
+export { configGetDevServer } from './devServer.js';
+export { configGetDevtool } from './devtool.js';
+export { configGetEntry } from './entry.js';
+export { configGetMode } from './mode.js';
+export { configGetOptimization } from './optimization.js';
+export { configGetOutput } from './output.js';
+export { configGetResolve } from './resolve.js';
+export { configGetStats } from './stats.js';
+export { configGetTarget } from './target.js';
+export { configGetCache } from './cache.js';
