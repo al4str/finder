@@ -15,6 +15,7 @@ export async function configGetLoaderPostcss(params) {
           ['postcss-preset-env', {
             browsers: targetsGetConfig(false),
           }],
+          'tailwindcss',
           'autoprefixer',
           'cssnano',
         ],
