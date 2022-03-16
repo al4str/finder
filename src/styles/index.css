@@ -42,3 +42,176 @@
     @apply outline-none ring ring-blue-200 dark:ring-blue-300;
   }
 }
+
+@layer utilities {
+  .accelerate {
+    will-change: transform;
+  }
+
+  .appearance-none {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .color-inherit {
+    color: inherit;
+  }
+
+  .cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  .font-inherit {
+    font: inherit;
+    text-align: inherit;
+    text-transform: inherit;
+    text-decoration: inherit;
+    line-height: inherit;
+  }
+
+  .overflow-scrolling-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  .touch-none {
+    touch-action: none;
+  }
+
+  .z-app {
+    z-index: 1;
+  }
+
+  .z-app-header {
+    z-index: 2;
+  }
+
+  .z-app-main {
+    z-index: 1;
+  }
+
+  .z-tooltips {
+    z-index: 5;
+  }
+
+  .z-popovers {
+    z-index: 6;
+  }
+}
+
+@layer components {
+  /* For any clickable entity */
+  .action {
+    @apply color-inherit font-inherit tap-highlight m-0 box-border inline-block h-auto w-auto cursor-pointer select-none appearance-none overflow-hidden rounded-none border-0 bg-transparent p-0 disabled:cursor-not-allowed;
+  }
+
+  /* For aligning `action` children */
+  .action-wrp {
+    @apply pointer-events-none flex h-full w-full items-center justify-center;
+  }
+
+  /* For any text inputs */
+  .field {
+    @apply color-inherit font-inherit m-0 box-border block h-auto w-auto appearance-none rounded-none border-0 bg-transparent p-0 outline-none ring-0 disabled:cursor-not-allowed;
+  }
+
+  /* Button */
+  .btn {
+    @apply action transition-colors;
+  }
+
+  /* Button: variants */
+  .btn-primary {
+    @apply bg-blue-600 font-medium text-white hover:bg-blue-500 active:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 dark:active:bg-blue-600;
+  }
+
+  .btn-flat {
+    @apply font-medium hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-zinc-700 dark:active:bg-zinc-600;
+  }
+
+  /* Button: disabled */
+  .btn-disabled {
+    @apply pointer-events-none;
+  }
+
+  .btn-primary.btn-disabled {
+    @apply bg-gray-200 text-gray-400 dark:bg-zinc-700 dark:text-zinc-500;
+  }
+
+  .btn-flat.btn-disabled {
+    @apply text-gray-300 dark:text-zinc-500;
+  }
+
+  /* Button: sizes */
+  .btn-full {
+    @apply block w-full;
+  }
+
+  .btn-small {
+    @apply h-8 rounded-lg px-2;
+  }
+
+  .btn-medium {
+    @apply h-10 rounded-xl px-2;
+  }
+
+  /* Button: content wrapping */
+  .btn-wrp {
+    @apply action-wrp;
+  }
+
+  /* Button: icon */
+  .btn-icon {
+    @apply block shrink-0 stroke-current transition-colors;
+  }
+
+  .btn-small .btn-icon {
+    @apply h-5 w-5;
+  }
+
+  .btn-medium .btn-icon {
+    @apply h-5 w-5;
+  }
+
+  .btn-flat .btn-icon {
+    @apply text-gray-400 dark:text-zinc-500;
+  }
+
+  .btn-disabled .btn-icon {
+    @apply text-gray-300 dark:text-zinc-600;
+  }
+
+  /* Button: label */
+  .btn-label {
+    @apply min-w-0 truncate;
+  }
+
+  .btn-small .btn-label {
+    @apply text-sm;
+  }
+
+  .btn-medium .btn-label {
+    @apply text-base;
+  }
+
+  .btn-small .btn-icon + .btn-label,
+  .btn-small .btn-label + .btn-icon {
+    @apply ml-1;
+  }
+
+  .btn-medium .btn-icon + .btn-label,
+  .btn-medium .btn-label + .btn-icon {
+    @apply ml-2;
+  }
+
+  .logo {
+    font-family: 'Average', serif;
+  }
+}

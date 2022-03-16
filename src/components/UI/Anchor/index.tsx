@@ -20,7 +20,6 @@ export interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   activeClassName?: string;
   isActive?: (location: Location) => boolean;
   type?: 'link' | 'nav' | 'anchor';
-  qa?: string;
   to: string;
   children: ReactNode;
 }
@@ -31,7 +30,6 @@ export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref): J
     activeClassName = '',
     isActive = null,
     type = 'link',
-    qa = '',
     to,
     children,
     ...restProps
@@ -72,7 +70,6 @@ export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref): J
           className={className}
           ref={setRef}
           to={to}
-          data-qa={qa}
           {...restProps}
         >
           {children}
@@ -84,7 +81,6 @@ export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref): J
           className={navClassName}
           ref={setRef}
           to={to}
-          data-qa={qa}
           {...restProps}
         >
           {children}
@@ -96,7 +92,6 @@ export const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref): J
           className={className}
           ref={setRef}
           href={to}
-          data-qa={qa}
           {...restProps}
         >
           {children}
