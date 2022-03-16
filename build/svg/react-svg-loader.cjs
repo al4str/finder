@@ -10,9 +10,13 @@ const babelPluginReactSvg = require("babel-plugin-react-svg");
 /**
  * Transforms SVG imports
  *
- * @type {(content: any) => WebpackLoader}
+ * @instance
+ * @memberof WebpackLoader
+ *
+ * @param {any} content
+ * @return {WebpackLoader}
  */
-const ReactSvgWebpackLoader = (content) => {
+function ReactSvgWebpackLoader(content) {
   const cb = this.async();
 
   Promise.resolve(String(content))

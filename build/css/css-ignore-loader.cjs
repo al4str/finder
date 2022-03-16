@@ -7,9 +7,12 @@
 /**
  * Ignores CSS files
  *
- * @type {() => WebpackLoader}
+ * @instance
+ * @memberof WebpackLoader
+ *
+ * @return {WebpackLoader}
  */
-const CssIgnoreWebpackLoader = () => {
+function CssIgnoreWebpackLoader() {
   if (typeof this.cacheable === 'function') {
     this.cacheable();
   }
