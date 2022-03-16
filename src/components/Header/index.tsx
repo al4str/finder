@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { HeaderColorScheme } from '@/components/Header/ColorScheme';
-import { Anchor } from '@/components/UI/Anchor';
 import { ROUTES } from '@/helpers/routes';
-import styles from './styles.module.css';
+import { Anchor } from '@/components/UI/Anchor';
+import { HeaderColorScheme } from '@/components/Header/ColorScheme';
+import { HeaderGithubLink } from '@/components/Header/GithubLink';
 
 interface Props {
   className?: string;
@@ -14,23 +14,13 @@ export function Header(props: Props): JSX.Element {
   return (
     <header className={clsx('flex items-center', className)}>
       <Anchor
-        className="link text-4xl logo"
+        className="logo"
         to={ROUTES.main}
       >
         Finder
       </Anchor>
       <HeaderColorScheme className="ml-auto mr-1" />
-      <Anchor
-        className="btn btn-small btn-flat"
-        type="anchor"
-        to="https://github.com/al4str/finder"
-        target="_blank"
-        rel="noopener nofollow"
-      >
-        <span className="btn-wrp">
-          <span className={clsx('btn-icon bg-center bg-no-repeat bg-contain', styles.iconGithub)} />
-        </span>
-      </Anchor>
+      <HeaderGithubLink />
     </header>
   );
 }

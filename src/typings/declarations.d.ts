@@ -3,6 +3,7 @@ declare namespace NodeJS {
     NODE_ENV: 'development' | 'production';
     BUILD_MODERNITY: 'modern' | 'legacy';
     DEPLOY_ENV: 'local' | 'development' | 'production';
+    SECRETS_KEY_MAPTILER: string;
   }
 }
 
