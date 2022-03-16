@@ -24,14 +24,14 @@ export const INJECTABLE_KEY_CHUNKS = '__INJECTABLE_CHUNKS__';
 /** @type {Array<BuildLinkItem>} */
 export const LINK_ITEMS = [
   {
-    originalPath: 'assets/brand/favicon.svg',
+    originalPath: 'favicon.svg',
     attributes: {
       rel: 'icon',
       type: 'image/svg+xml',
     },
   },
   {
-    originalPath: 'assets/brand/apple-touch-icon.png',
+    originalPath: 'assets/apple-touch-icon.png',
     attributes: {
       rel: 'apple-touch-icon',
     },
