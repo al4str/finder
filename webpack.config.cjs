@@ -7,6 +7,6 @@ module.exports = {
     alias: {
       '@': path.resolve(process.cwd(), 'src'),
     },
-    extensions: ['.js', '.ts', '.tsx'],
+    extensions: ['.js', '.d.ts', '.ts', '.tsx'],
   },
 };
