@@ -52,6 +52,7 @@ const basicRules = {
       json: true,
     },
   ],
+  'import/order': 'off',
   'import/no-extraneous-dependencies': 'warn',
   'import/no-named-as-default': 'off',
   'import/no-unresolved': [

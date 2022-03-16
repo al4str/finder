@@ -19,7 +19,12 @@ declare module '*.svg' {
   export default SVGComponent;
 }
 
-declare module '*.scss' {
+declare module '*.css' {
   const classes: { [key: string]: string };
   export default classes;
+}
+
+declare module 'jaro-winkler' {
+  const calculateSimilarity = (a: string, b: string) => number;
+  export default calculateSimilarity;
 }
