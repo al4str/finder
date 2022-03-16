@@ -1,6 +1,6 @@
-import throttle from "lodash/throttle";
-import { Dispatch, SetStateAction, useRef, useState, useEffect } from "react";
-import { idGet } from "utils/id";
+import throttle from 'lodash.throttle';
+import { Dispatch, SetStateAction, useRef, useState, useEffect } from 'react';
+import { idGet } from '@/utils/id';
 
 interface StoreResult<T, A> {
   getState: () => T;
@@ -14,14 +14,12 @@ interface StoreReducer<T, A> {
 
 export function storeCreate<T, A = string>(
   initialState: T,
-  reducer: StoreReducer<T, A>
+  reducer: StoreReducer<T, A>,
 ): StoreResult<T, A> {
   let innerState = initialState;
 
-  const subscribers = new Map<
-    string,
-    Dispatch<SetStateAction<Record<string, never>>>
-  >();
+  const subscribers = new Map<string,
+    Dispatch<SetStateAction<Record<string, never>>>>();
 
   const throttledSubscribersUpdate = throttle(
     () => {
@@ -33,7 +31,7 @@ export function storeCreate<T, A = string>(
     {
       leading: true,
       trailing: true,
-    }
+    },
   );
 
   function useStore() {

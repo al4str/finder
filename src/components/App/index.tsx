@@ -1,5 +1,13 @@
+import { Suspense } from 'react';
+import { RoutesBoundary } from '@/components/Routes/Boundary';
+import { RoutesSwitcher } from '@/components/Routes/Switcher';
+
 export function App(): JSX.Element {
   return (
-    <h1 className="text-3xl font-bold underline text-red-500">Hello world</h1>
+    <RoutesBoundary>
+      <Suspense fallback={null}>
+        <RoutesSwitcher />
+      </Suspense>
+    </RoutesBoundary>
   );
 }
