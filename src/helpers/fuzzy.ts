@@ -1,5 +1,5 @@
 import stringSimilarity from 'jaro-winkler';
-import { CountryDataItemShort } from '@/typings/countries';
+import { CountryDataItemShort } from '@/types/countries';
 
 const SIMILARITY_THRESHOLD = 0.7;
 

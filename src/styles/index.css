@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply text-gray-900 dark:text-white background;
+    @apply text-gray-900 dark:text-white bg-gradient-to-r from-slate-200 to-slate-300 bg-fixed;
     height: 100%;
     margin: 0;
     font-family: inherit;
@@ -35,7 +35,7 @@
   }
 
   *:focus-visible {
-    @apply outline-none ring ring-blue-200 dark:ring-blue-300;
+    @apply outline-none ring-2 ring-blue-400 dark:ring-blue-300;
   }
 }
 
@@ -86,15 +86,19 @@
   }
 
   .z-app-map {
-    z-index: 1;
+    z-index: 0;
   }
 
   .z-app-header {
-    z-index: 3;
+    z-index: 1;
   }
 
   .z-app-main {
     z-index: 2;
+  }
+
+  .z-app-search {
+    z-index: 3;
   }
 
   .z-tooltips {
@@ -212,12 +216,16 @@
   }
 
   .logo {
-    @apply text-4xl leading-8;
+    @apply text-4xl leading-8 rounded-lg;
     font-family: 'Average', serif;
     letter-spacing: -0.03em;
   }
 
   .background {
-    @apply bg-white dark:bg-zinc-800;
+    @apply bg-slate-100 dark:bg-zinc-800;
+  }
+
+  .background-blurred {
+    @apply backdrop-blur-sm bg-white/30 dark:bg-zinc-900/50;
   }
 }

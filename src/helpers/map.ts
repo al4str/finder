@@ -1,6 +1,7 @@
+import { Coordinate } from 'ol/coordinate';
 import { storeCreate } from '@/utils/store';
 
-export type MapCoordinates = [number, number];
+export type MapCoordinates = Coordinate;
 
 export interface MapPosition {
   coordinates: MapCoordinates;
@@ -27,6 +28,8 @@ const {
   initialState,
   reducer,
 );
+
+export const mapGetState = getState;
 
 export function useMapStore() {
   useStore();

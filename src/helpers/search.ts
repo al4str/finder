@@ -1,4 +1,4 @@
-import { CountryDataItem, CountryDataItemShort, CountryCode } from '@/typings/countries';
+import { CountryDataItem, CountryDataItemShort, CountryCode } from '@/types/countries';
 import { API_URL } from '@/constants';
 import { storeCreate } from '@/utils/store';
 import { fetchExec } from '@/utils/fetch';
@@ -50,7 +50,11 @@ const {
 
 export const searchGetState = getState;
 
-export const useSearchStore = useStore;
+export function useSearchStore() {
+  useStore();
+
+  return searchGetState();
+}
 
 export async function searchInit() {
   dispatch('SET_READY_STATE', {
@@ -74,6 +78,13 @@ export async function searchInit() {
 }
 
 export async function searchExec(query: string) {
+  const { readySate } = searchGetState();
+  dispatch('SET_QUERY', {
+    query,
+  });
+  if (!query || readySate === 'SEARCHING') {
+    return;
+  }
   dispatch('SET_READY_STATE', {
     readySate: 'SEARCHING',
   });

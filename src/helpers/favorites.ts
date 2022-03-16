@@ -1,4 +1,4 @@
-import { CountryCode } from '@/typings/countries';
+import { CountryCode } from '@/types/countries';
 import { LocalStorageResult, useLocalStorage } from '@/hooks/localStorage';
 
 const STORAGE_KEY = 'FINDER_FAVORITES';

@@ -1,4 +1,4 @@
-import { CountryDataItem, CountryCode } from '@/typings/countries';
+import { CountryDataItem, CountryCode } from '@/types/countries';
 import { API_URL } from '@/constants';
 import { storeCreate } from '@/utils/store';
 import { fetchExec } from '@/utils/fetch';
@@ -10,6 +10,7 @@ type ReadyState = 'INITIAL' | 'FETCHING' | 'READY' | 'NOT_FOUND';
 
 interface State {
   readySate: ReadyState;
+  initial: boolean;
   pending: boolean;
   ready: boolean;
   notFound: boolean;
@@ -18,6 +19,7 @@ interface State {
 
 const initialState: State = {
   readySate: 'INITIAL',
+  initial: true,
   pending: true,
   ready: false,
   notFound: false,
@@ -25,6 +27,7 @@ const initialState: State = {
 };
 
 const {
+  getState,
   dispatch,
   useStore,
 } = storeCreate<State, Action>(
@@ -32,7 +35,11 @@ const {
   reducer,
 );
 
-export const useCountryStore = useStore;
+export function useCountryStore() {
+  useStore();
+
+  return getState();
+}
 
 export async function countryInit(code: CountryCode) {
   if (!code) {
@@ -52,11 +59,11 @@ export async function countryInit(code: CountryCode) {
   dispatch('SET_READY_STATE', {
     readySate: 'FETCHING',
   });
-  const res = await fetchExec<CountryDataItem>({
+  const res = await fetchExec<CountryDataItem[]>({
     url: `${API_URL}/alpha/${code}`,
   });
-  if (res.ok) {
-    searchAddItem(res.body);
+  if (res.ok && res.body[0]) {
+    searchAddItem(res.body[0]);
   }
   dispatch('SET_READY_STATE', {
     readySate: 'READY',
@@ -74,6 +81,7 @@ function reducer(
       return {
         ...state,
         readySate: nextReadyState,
+        initial: nextReadyState === 'INITIAL',
         pending: ['INITIAL', 'FETCHING'].includes(nextReadyState),
         ready: nextReadyState === 'READY',
         notFound: nextReadyState === 'NOT_FOUND',

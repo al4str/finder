@@ -12,15 +12,20 @@ export function Header(props: Props): JSX.Element {
   const { className = '' } = props;
 
   return (
-    <header className={clsx('flex items-center', className)}>
-      <Anchor
-        className="logo"
-        to={ROUTES.main}
-      >
-        Finder
-      </Anchor>
-      <HeaderColorScheme className="ml-auto mr-1" />
-      <HeaderGithubLink />
+    <header
+      className={clsx(className)}
+      id="header"
+    >
+      <div className="flex items-center py-2 px-3 background-blurred">
+        <Anchor
+          className="logo"
+          to={ROUTES.main}
+        >
+          Finder
+        </Anchor>
+        <HeaderColorScheme className="ml-auto mr-1" />
+        <HeaderGithubLink />
+      </div>
     </header>
   );
 }

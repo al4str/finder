@@ -1,3 +1,5 @@
+import { Page } from '@/components/Page';
+
 export function FavoritesPage(): JSX.Element {
-  return <h1>Favorites</h1>;
+  return <Page><h1>Favorites</h1></Page>;
 }
