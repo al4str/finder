@@ -1,3 +1,5 @@
+import path from 'path';
+import { ROOT_DIR } from '../../constants.js';
 import { configGetLoaderPostcss } from './postcss.js';
 import { configGetLoaderCSS } from './css.js';
 
@@ -7,7 +9,13 @@ import { configGetLoaderCSS } from './css.js';
 export async function configGetLoaderCssModules(params) {
   return {
     test: /\.module\.css$/,
-    use: [
+    use: params.production && params.modern
+      ? [
+        {
+          loader: path.resolve(ROOT_DIR, 'build/css/css-ignore-loader.cjs'),
+        },
+      ]
+      : [
       await configGetLoaderCSS(params),
       {
         loader: 'css-loader',
