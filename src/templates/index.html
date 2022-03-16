@@ -16,6 +16,24 @@
   {{chunksMap}}
   {{moduleTags}}
   {{nomoduleTags}}
+  <script>
+    (function() {
+      var root = document.documentElement;
+      var storageScheme = JSON.parse(localStorage.getItem("FINDER_COLOR_SCHEME"))
+        || "system";
+      var storageDarkMode = storageScheme === "dark";
+      var storageSystemMode = !storageScheme || storageScheme === "system";
+      var systemDarkMode = matchMedia("(prefers-color-scheme: dark)").matches;
+      if (storageDarkMode || (storageSystemMode && systemDarkMode)) {
+        root.classList.add("dark");
+        root.style.setProperty("color-scheme", "dark light");
+      }
+      else {
+        root.classList.remove("dark");
+        root.style.setProperty("color-scheme", "");
+      }
+    })();
+  </script>
 </head>
 <body>
 <div id="root"></div>
