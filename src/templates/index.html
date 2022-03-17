@@ -26,7 +26,6 @@
   {{styleTags}}
   {{assetsMap}}
   {{chunksMap}}
-  {{moduleTags}}
   {{nomoduleTags}}
   <script>
     (function() {
@@ -46,6 +45,49 @@
         root.classList.remove("dark");
         root.style.setProperty("color-scheme", "");
       }
+    })();
+  </script>
+  <script type="module" id="loader">
+    (function() {
+      document.addEventListener("DOMContentLoaded", function() {
+        var timeout = 2500;
+        var scripts = JSON.parse(`{{moduleItems}}`);
+        var initialScript = document.getElementById("loader");
+        scripts.forEach(function(tag, index) {
+          const script = tag.attributes;
+          var isMain = /\/main\./.test(script.src);
+          var minimumRemainingTime = isMain
+            ? 40
+            : 15;
+          var el = document.createElement("script");
+          el.src = script.src;
+          el.defer = true;
+          el.onload = function() {
+            if (initialScript) {
+              initialScript.parentNode.removeChild(initialScript);
+              initialScript = null;
+            }
+          };
+          if ("requestIdleCallback" in window) {
+            var deadlineTimestamp = Date.now() + timeout;
+            window.requestIdleCallback(function run(deadline) {
+              if (
+                deadline.timeRemaining() > minimumRemainingTime
+                || deadlineTimestamp < Date.now()
+                || deadline.didTimeout
+              ) {
+                document.body.appendChild(el);
+              } else {
+                window.requestIdleCallback(run, { timeout });
+              }
+            }, { timeout });
+          } else {
+            setTimeout(function() {
+              document.body.appendChild(el);
+            }, index * 40)
+          }
+        })
+      })
     })();
   </script>
 </head>

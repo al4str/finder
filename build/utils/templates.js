@@ -82,7 +82,7 @@ function templatesGetTokens(params) {
     styleTags: tagsItemsToString(mainItemsGrouped.style),
     assetsMap: itemsMap,
     chunksMap: restGroups,
-    moduleTags: tagsItemsToString(mainItemsGrouped.module),
+    moduleItems: mainItemsGrouped.module,
     nomoduleTags: tagsItemsToString(mainItemsGrouped.nomodule),
   };
 }
@@ -114,13 +114,13 @@ function templatesMergeTokensMaps(tokensMaps) {
     styleTags: [],
     assetsMap: {},
     chunksMap: {},
-    moduleTags: [],
+    moduleItems: [],
     nomoduleTags: [],
   };
 
   tokensMaps.forEach((tokensMap) => {
     ['linkTags', 'prefetchTags',
-      'preloadTags', 'styleTags', 'moduleTags',
+      'preloadTags', 'styleTags', 'moduleItems',
       'nomoduleTags'].forEach((name) => {
       /** @type {Array<string>} */
       const tags = tokensMap[name];
@@ -167,7 +167,7 @@ function templatesTokensMapToString(tokensMap) {
     styleTags: tokensMap.styleTags.join('\n'),
     assetsMap: assetsGetScriptString(INJECTABLE_KEY_ASSETS, tokensMap.assetsMap),
     chunksMap: assetsGetScriptString(INJECTABLE_KEY_CHUNKS, tokensMap.chunksMap),
-    moduleTags: tokensMap.moduleTags.join('\n'),
+    moduleItems: JSON.stringify(tokensMap.moduleItems),
     nomoduleTags: tokensMap.nomoduleTags.join('\n'),
   };
 }

@@ -35,13 +35,13 @@
  * @property {string[]} styleTags
  * @property {Record<string, string>} assetsMap
  * @property {Record<string, string[]>} chunksMap
- * @property {string[]} moduleTags
+ * @property {BuildTagItem[]} moduleItems
  * @property {string[]} nomoduleTags
  * */
 
 /**
  * @typedef {'linkTags'|'prefetchTags'|'preloadTags'
- *   |'styleTags'|'assetsMap'|'chunksMap'|'moduleTags'
+ *   |'styleTags'|'assetsMap'|'chunksMap'|'moduleItems'
  *   |'nomoduleTags'} BuildTemplateTokenName
  * */
 
