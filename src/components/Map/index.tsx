@@ -11,7 +11,7 @@ import { KEY_MAPTILER } from '@/constants';
 import { MapCoordinates, useMapStore, mapGetState } from '@/helpers/map';
 import { useViewportSize } from '@/hooks/viewportSize';
 
-const DURATION = 2000;
+const DURATION = 1500;
 
 interface Props {
   className?: string;
@@ -98,17 +98,13 @@ function getCoordinates(coordinates: MapCoordinates): MapCoordinates {
 const SAFE_MARGIN = 12;
 
 function getPadding(): [number, number, number, number] {
-  const header = window.document.getElementById('header');
   const space = window.document.getElementById('space');
-  const headerHeight = header instanceof HTMLElement
-    ? header.clientHeight + SAFE_MARGIN
-    : SAFE_MARGIN;
   const spaceHeight = space instanceof HTMLElement
     ? space.clientHeight
     : SAFE_MARGIN;
 
   return [
-    headerHeight,
+    SAFE_MARGIN,
     SAFE_MARGIN,
     spaceHeight,
     SAFE_MARGIN,

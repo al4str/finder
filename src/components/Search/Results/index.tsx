@@ -49,7 +49,7 @@ export function SearchResults(props: Props): JSX.Element {
   }
   return (
     <div
-      className={clsx('mx-3 p-2 rounded-lg background', className)}
+      className={clsx('mx-3 p-2 rounded-lg background-blurred sm:mx-5 sm:p-4 sm:rounded-2xl', className)}
       id="search-results"
     >
       {searching && (
@@ -61,7 +61,7 @@ export function SearchResults(props: Props): JSX.Element {
       {ready && (
         <ListItems items={resultItems} />
       )}
-      <SearchBySelect className="mt-3 pl-1" />
+      <SearchBySelect className="mt-3 pl-1 sm:pl-2" />
     </div>
   );
 }

@@ -27,9 +27,11 @@ export function HistoryPage(): JSX.Element {
   }, [setHistory]);
 
   return (
-    <Page className="mx-3 p-2 rounded-lg background">
-      <div className="flex items-center mb-1">
-        <h1 className="heading">Search history</h1>
+    <Page className="mx-3 p-2 rounded-lg background-blurred sm:mx-5 sm:px-4 sm:pb-4 sm:rounded-2xl">
+      <div className="flex items-center mb-1 sm:mb-2">
+        <h1 className="heading text-lg sm:text-3xl">
+          Search history
+        </h1>
         {hasItems && (
           <button
             className="ml-auto btn btn-flat"

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Anchor } from '@/components/UI/Anchor';
-import styles from './styles.module.css';
+import Github from '@/components/Icons/github.svg';
 
 interface Props {
   className?: string;
@@ -11,14 +11,14 @@ export function HeaderGithubLink(props: Props): JSX.Element {
 
   return (
     <Anchor
-      className={clsx('btn btn-flat', className)}
+      className={clsx('btn btn-blurred', className)}
       type="anchor"
       to="https://github.com/al4str/finder"
       target="_blank"
       rel="noopener nofollow"
     >
       <span className="btn-wrp">
-        <span className={clsx('btn-icon bg-center bg-no-repeat bg-contain', styles.icon)} />
+        <Github className="btn-icon" />
       </span>
     </Anchor>
   );

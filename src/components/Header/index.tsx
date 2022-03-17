@@ -13,17 +13,17 @@ export function Header(props: Props): JSX.Element {
 
   return (
     <header
-      className={clsx(className)}
+      className={clsx('bg-gradient-to-b from-black/40 to-black/0', className)}
       id="header"
     >
-      <div className="flex items-center py-2 px-3 background-blurred">
+      <div className="flex items-center py-2 px-3 sm:px-5 sm:py-4">
         <Anchor
           className="logo"
           to={ROUTES.main}
         >
           Finder
         </Anchor>
-        <HeaderColorScheme className="ml-auto mr-1" />
+        <HeaderColorScheme className="ml-auto mr-3 sm:mr-5" />
         <HeaderGithubLink />
       </div>
     </header>

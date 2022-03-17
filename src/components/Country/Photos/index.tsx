@@ -189,16 +189,18 @@ export function CountryPhotos(props: Props): JSX.Element {
         </ul>
       </div>
       {showPagination && (
-        <ul className="absolute top-0 left-0 flex justify-around w-full p-1.5">
+        <ul className="absolute top-0 left-0 flex justify-around w-full p-1.5 sm:px-4 sm:py-5">
           {items.map((item, index) => (
             <li
               key={item.url}
-              className="w-full p-[4px]"
+              className="w-full mr-1 sm:mr-5 last:mr-0"
             >
               <button
                 className={clsx(
-                  'btn btn-full h-[4px] rounded-[2px] transition-colors pointer-events-auto',
-                  index === current ? 'bg-white' : 'bg-white/20',
+                  'btn btn-full h-1 rounded transition-colors pointer-events-auto sm:h-1.5',
+                  index === current
+                    ? 'bg-white dark:bg-zinc-700'
+                    : 'bg-white/20 dark:bg-zinc-700/20',
                 )}
                 type="button"
                 tabIndex={-1}

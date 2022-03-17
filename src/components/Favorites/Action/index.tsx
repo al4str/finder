@@ -14,6 +14,9 @@ export function FavoritesAction(props: Props): JSX.Element {
   const [favorites, setFavorites] = useFavorites();
   const disabled = !code;
   const filled = favorites.includes(code);
+  const label = filled
+    ? 'Remove from favorites'
+    : 'Add to favorites';
 
   const handleToggle = useCallback(() => {
     setFavorites((prevFavorites) => {
@@ -28,20 +31,21 @@ export function FavoritesAction(props: Props): JSX.Element {
     return (
       <button
         className={clsx(
-          'btn btn-blurred block w-8 !p-0',
+          'btn btn-blurred',
           className,
         )}
         type="button"
         disabled={disabled}
+        aria-label={label}
         onClick={handleToggle}
       >
         <span className="btn-wrp">
           <Star
             className={clsx(
-              'block w-6 h-6',
+              'btn-icon',
               filled
-                ? 'fill-current text-yellow-400'
-                : 'fill-transparent stroke-current text-gray-600',
+                ? 'fill-current !text-yellow-400'
+                : 'fill-transparent stroke-current',
             )}
           />
         </span>

@@ -18,16 +18,16 @@ export function MainLink(props: Props): JSX.Element {
   } = props;
 
   return (
-    <div className={clsx('p-2 rounded-lg background-blurred', className)}>
+    <div className={clsx('', className)}>
       <Anchor
-        className="btn btn-full h-8"
+        className="btn btn-full block rounded-lg background-blurred sm:p-3"
         type="link"
         to={to}
       >
         <span className="flex items-center w-full h-full">
           <span>{label}</span>
           {amount > 0 && <span>&nbsp;({amount})</span>}
-          <ArrowRight className="w-4 h-4 ml-auto fill-current" />
+          <ArrowRight className="w-4 h-4 ml-auto fill-current sm:w-6 sm:h-6" />
         </span>
       </Anchor>
     </div>

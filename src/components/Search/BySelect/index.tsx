@@ -54,10 +54,10 @@ export function SearchBySelect(props: Props): JSX.Element {
 
   return (
     <div className={clsx('flex items-center', className)}>
-      <span className="text-sm text-gray-600 mr-1">Search by:</span>
+      <span className="text-sm text-gray-600 mr-1 dark:text-zinc-500 sm:mr-2 sm:text-base">Search by:</span>
       <div className="relative">
         <select
-          className="btn btn-full pr-6 bg-white border border-gray-200 rounded-lg"
+          className="btn btn-full pl-2 pr-6 background border border-gray-200 rounded-lg dark:border-zinc-700 sm:pl-3"
           id="search-by"
           value={by}
           onChange={handleChange}
@@ -68,7 +68,7 @@ export function SearchBySelect(props: Props): JSX.Element {
             </option>
           ))}
         </select>
-        <ArrowDown className="absolute top-0 right-0 w-5 h-5 m-1.5 btn-icon pointer-events-none" />
+        <ArrowDown className="absolute top-0 right-0 w-5 h-5 m-1.5 btn-icon pointer-events-none sm:w-7 sm:h-7 sm:m-2.5" />
       </div>
       <label
         className="sr-only"

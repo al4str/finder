@@ -23,7 +23,7 @@ export function MainPage(): JSX.Element {
 
   return (
     <>
-      <Page className="mx-3">
+      <Page className="mx-3 sm:mx-5">
         <MainLink
           to={luckyLink}
           label={hasItem ? 'Feeling lucky' : 'Randomizing..'}

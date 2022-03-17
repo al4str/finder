@@ -107,7 +107,7 @@
     z-index: 3;
   }
 
-  @media (min-width: 641px) {
+  @screen sm {
     .lock {
       overflow-y: auto;
     }
@@ -127,7 +127,7 @@
   }
 
   .btn {
-    @apply action h-8 px-2 transition-colors;
+    @apply action w-8 h-8 transition-colors sm:w-12 sm:h-12;
   }
   .btn-blurred {
     @apply background-blurred rounded-full hover:bg-white dark:hover:bg-zinc-900;
@@ -142,22 +142,22 @@
     @apply action-wrp;
   }
   .btn-icon {
-    @apply block h-5 w-5 shrink-0 fill-current transition-colors;
+    @apply block h-5 w-5 shrink-0 fill-current transition-colors sm:w-8 sm:h-8;
   }
   .btn-flat .btn-icon {
-    @apply text-gray-400 dark:text-zinc-500;
+    @apply text-gray-800 dark:text-zinc-500;
   }
   .btn-label {
     @apply min-w-0 text-sm truncate;
   }
 
   .heading {
-    @apply text-lg font-serif;
+    @apply font-serif;
   }
 
   .logo {
-    @apply text-4xl font-serif leading-8 rounded-lg select-none;
-    letter-spacing: -0.03em;
+    @apply text-4xl font-serif leading-8 text-white rounded-lg select-none sm:text-5xl;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
   }
 
   .background {
@@ -167,14 +167,14 @@
     @apply backdrop-blur-sm bg-white/30 dark:bg-zinc-900/50;
   }
   .background-gradient {
-    @apply bg-gradient-to-r from-slate-200 to-slate-300;
+    @apply bg-gradient-to-r from-slate-200 to-slate-300 dark:from-zinc-800 dark:to-zinc-700;
   }
 
   .skeleton {
-    @apply text-transparent bg-gray-200 rounded-md;
+    @apply text-transparent bg-gray-200 rounded-md dark:bg-zinc-700;
   }
 
   .message {
-    @apply py-6 text-sm text-center text-gray-600;
+    @apply py-6 text-sm text-center text-gray-600 dark:text-zinc-500 sm:text-base;
   }
 }

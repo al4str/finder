@@ -46,28 +46,28 @@ export function ListItem(props: Props): JSX.Element {
 
   return (
     <Anchor
-      className={clsx('block p-2 bg-white rounded-lg', className)}
+      className={clsx('block p-2 rounded-lg background sm:p-3 sm:rounded-2xl', className)}
       type="link"
       to={link}
       onClick={handleHistory}
     >
       <span className="flex items-center">
-        <span className="min-w-0 mr-2">
-          <span className="heading">{name}</span>
+        <span className="min-w-0 mr-2 sm:mr-3">
+          <span className="heading text-lg sm:text-2xl">{name}</span>
           <span className="flex items-center">
             <FavoritesAction
-              className="shrink-0 mr-0.5"
+              className="shrink-0 mr-0.5 sm:mr-1.5"
               action={false}
               code={code}
             />
-            <span className="block text-sm text-gray-600 truncate">
+            <span className="block text-sm text-gray-600 truncate dark:text-zinc-400 sm:text-base">
               {altNames}
             </span>
           </span>
         </span>
         {hasFlag && (
           <span
-            className="w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat bg-contain"
+            className="w-8 h-8 shrink-0 ml-auto bg-center bg-no-repeat bg-contain sm:w-12 sm:h-12"
             style={{
               backgroundImage: `url(${flag})`,
             }}

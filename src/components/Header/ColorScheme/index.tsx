@@ -5,7 +5,8 @@ import {
   colorSchemeApply,
   useColorScheme,
 } from '@/hooks/colorScheme';
-import styles from './styles.module.css';
+import Sun from '@/components/Icons/sun.svg';
+import Moon from '@/components/Icons/moon.svg';
 
 interface Props {
   className?: string;
@@ -17,9 +18,9 @@ export function HeaderColorScheme(props: Props): JSX.Element {
   const label = actual === 'dark'
     ? 'Apply light mode'
     : 'Apply dark mode';
-  const icon = actual === 'dark'
-    ? styles.iconSun
-    : styles.iconMoon;
+  const Icon = actual === 'dark'
+    ? Sun
+    : Moon;
 
   const handleApply = useCallback(() => {
     if (colorSchemeGetState().actual === 'dark') {
@@ -31,14 +32,14 @@ export function HeaderColorScheme(props: Props): JSX.Element {
 
   return (
     <button
-      className={clsx('btn btn-flat', className)}
+      className={clsx('btn btn-blurred', className)}
       type="button"
       title={label}
       aria-label={label}
       onClick={handleApply}
     >
       <span className="btn-wrp">
-        <span className={clsx('btn-icon bg-center bg-no-repeat bg-contain', icon)} />
+        <Icon className="btn-icon" />
       </span>
     </button>
   );

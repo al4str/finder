@@ -39,9 +39,9 @@ export function CountryPage(): JSX.Element {
       {
         name: 'name.nativeName',
         value: Object
-          .entries(item?.name?.nativeName || {})
-          .map(([lang, nativeNames]) => {
-            return `${nativeNames.official} (${lang})`;
+          .values(item?.name?.nativeName || {})
+          .map((nativeNames) => {
+            return nativeNames.official;
           })
           .join(', '),
       },
@@ -53,7 +53,7 @@ export function CountryPage(): JSX.Element {
         name: 'coatOfArms',
         value: item?.coatOfArms?.png && (
           <img
-            className="block mt-3 mx-auto max-w-[200px]"
+            className="block mt-3 max-w-[200px]"
             src={item?.coatOfArms?.png}
             alt={`${item?.name?.official} coat of arms`}
           />
@@ -283,24 +283,24 @@ export function CountryPage(): JSX.Element {
     );
   }
   return (
-    <Page className="mx-3 rounded-lg">
-      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg">
-        <CountryPhotos className="w-full h-full rounded-t-lg overflow-hidden" items={countryPhotos} />
+    <Page className="mx-3 rounded-lg sm:rounded-2xl sm:mx-5">
+      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg xs:h-[300px] sm:h-[350px] md:h-[500px] lg:h-[720px] sm:rounded-t-2xl">
+        <CountryPhotos className="w-full h-full rounded-t-lg overflow-hidden sm:rounded-t-2xl" items={countryPhotos} />
         <FavoritesAction
-          className="absolute bottom-2 left-2"
+          className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4"
           action
           code={code}
         />
       </div>
-      <div className="p-2 background rounded-b-lg">
+      <div className="p-2 background rounded-b-lg sm:px-5 sm:pt-3 sm:pb-7 sm:rounded-b-2xl">
         <div className="flex">
-          <h1 className={clsx('text-3xl font-serif mr-2', pending && 'skeleton')}>
+          <h1 className={clsx('heading text-3xl mr-2 sm:text-5xl sm:mr-4 sm:mt-1', pending && 'skeleton')}>
             {pending ? 'Pending' : name}
           </h1>
           {hasFlag && (
             <span
               className={clsx(
-                'w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat bg-contain',
+                'w-8 h-8 shrink-0 ml-auto bg-center bg-no-repeat bg-contain sm:w-16 sm:h-16',
                 pending && 'skeleton',
               )}
               style={{
@@ -309,11 +309,11 @@ export function CountryPage(): JSX.Element {
             />
           )}
         </div>
-        <dl className="mt-3">
+        <dl className="mt-3 sm:mt-5">
           {details.map((detail) => (
             <CountryDetails
               key={detail.name}
-              className="mb-3 last:mb-0"
+              className="mb-3 mb-5 last:mb-0"
               pending={pending}
               label={countryGetDescription(detail.name)}
             >

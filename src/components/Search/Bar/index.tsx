@@ -13,7 +13,7 @@ export function SearchBar(props: Props): JSX.Element {
       className={clsx(className)}
       id="search"
     >
-      <div className="mt-3 mx-3 p-2 rounded-lg background-blurred">
+      <div className="mt-3 mx-3 p-2 rounded-lg background-blurred sm:mx-5 sm:p-3">
         <SearchField />
       </div>
     </div>
