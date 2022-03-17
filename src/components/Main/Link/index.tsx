@@ -18,9 +18,9 @@ export function MainLink(props: Props): JSX.Element {
   } = props;
 
   return (
-    <div className={clsx('', className)}>
+    <div className={clsx(className)}>
       <Anchor
-        className="btn btn-full btn-blurred block rounded-lg sm:p-3"
+        className="btn btn-full btn-blurred block p-2 rounded-lg sm:p-3"
         type="link"
         to={to}
       >

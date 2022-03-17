@@ -1,15 +1,15 @@
 import 'ol/ol.css';
 import OpenLayerMap from 'ol/Map';
-import OpenLayerTileLayer from 'ol/layer/Tile';
+import OpenLayerLayerTile from 'ol/layer/Tile';
 import OpenLayerView from 'ol/View';
-import OpenLayerXYZ from 'ol/source/XYZ';
+import OpenLayerSourceXYZ from 'ol/source/XYZ';
 import OpenLayerPoint from 'ol/geom/Point';
 import { transform } from 'ol/proj';
 import { memo, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { KEY_MAPTILER } from '@/constants';
 import { MapCoordinates, useMapStore, mapGetState } from '@/helpers/map';
-import { useViewportSize } from '@/hooks/viewportSize';
+import { useViewportSize, viewportGetSize } from '@/hooks/viewportSize';
 
 const DURATION = 1500;
 
@@ -60,8 +60,8 @@ const URL = 'https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}@2x.jpg';
 function getMap(): OpenLayerMap {
   return new OpenLayerMap({
     layers: [
-      new OpenLayerTileLayer({
-        source: new OpenLayerXYZ({
+      new OpenLayerLayerTile({
+        source: new OpenLayerSourceXYZ({
           url: `${URL}?key=${KEY_MAPTILER}`,
           tilePixelRatio: 2,
         }),
@@ -98,15 +98,20 @@ function getCoordinates(coordinates: MapCoordinates): MapCoordinates {
 const SAFE_MARGIN = 12;
 
 function getPadding(): [number, number, number, number] {
+  const { visualHeight } = viewportGetSize();
+  const header = window.document.getElementById('header');
   const space = window.document.getElementById('space');
+  const headerHeight = header instanceof HTMLElement
+    ? header.clientHeight
+    : SAFE_MARGIN;
   const spaceHeight = space instanceof HTMLElement
     ? space.clientHeight
     : SAFE_MARGIN;
 
   return [
+    headerHeight,
     SAFE_MARGIN,
-    SAFE_MARGIN,
-    spaceHeight,
+    visualHeight - spaceHeight,
     SAFE_MARGIN,
   ];
 }

@@ -21,7 +21,7 @@ export function LayoutsDefault(props: Props): JSX.Element {
           <p className="message">Preparing map..</p>
         </div>
       </div>
-      <main className="relative z-app-main mt-auto mb-3 sm:mb-5">
+      <main className="relative z-app-main mt-auto mb-3 sm:mb-5 md:mx-auto md:w-[700px]">
         <Suspense fallback={null}>
           {children}
         </Suspense>

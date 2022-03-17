@@ -26,7 +26,7 @@ export function CountryPhoto(props: Props): JSX.Element {
           rel="noopener nofollow"
         >
           <span className="action-wrp">
-            <span>@{user}</span>
+            <span className="max-w-[50vw] truncate">@{user}</span>
           </span>
         </Anchor>
       </figcaption>

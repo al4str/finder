@@ -38,12 +38,18 @@ export function CountryPage(): JSX.Element {
       },
       {
         name: 'name.nativeName',
-        value: Object
-          .values(item?.name?.nativeName || {})
-          .map((nativeNames) => {
-            return nativeNames.official;
-          })
-          .join(', '),
+        value: (
+          <>
+            {Object
+              .values(item?.name?.nativeName || {})
+              .map((nativeNames) => (
+                <p key={nativeNames.official}>
+                  {nativeNames.official}
+                </p>
+              ))
+            }
+          </>
+        ),
       },
       {
         name: 'flag',
@@ -71,7 +77,10 @@ export function CountryPage(): JSX.Element {
               .values(item?.currencies || {})
               .map((currency) => (
                 <p key={currency.name}>
-                  {currency.name} ({currency.symbol})
+                  {currency.name}
+                  {Boolean(currency.symbol) && (
+                    <span>&nbsp;({currency.symbol})</span>
+                  )}
                 </p>
               ))
             }
@@ -138,8 +147,18 @@ export function CountryPage(): JSX.Element {
         name: 'car',
         value: (
           <>
-            <p>Signs: {item?.car?.signs?.join(', ')}</p>
-            <p>Side: {item?.car?.side}</p>
+            <p>
+              <span className="text-gray-600 dark:text-zinc-500">
+                Signs:&nbsp;
+              </span>
+              {item?.car?.signs?.join(', ')}
+            </p>
+            <p>
+              <span className="text-gray-600 dark:text-zinc-500">
+                Side:&nbsp;
+              </span>
+              {item?.car?.side}
+            </p>
           </>
         ),
       },
@@ -156,7 +175,10 @@ export function CountryPage(): JSX.Element {
               .map(([lang, demonyms]) => {
                 return (
                   <p key={lang}>
-                    Male: {demonyms.m}, Female {demonyms.f} ({lang})
+                    <span className="text-gray-600 dark:text-zinc-500">
+                      {lang}:&nbsp;
+                    </span>
+                    {demonyms.m} (m), {demonyms.f} (f)
                   </p>
                 );
               })
@@ -208,8 +230,11 @@ export function CountryPage(): JSX.Element {
             {Object
               .entries(item?.translations || {})
               .map(([lang, names]) => (
-                <p key={lang}>
-                  {names.official} ({lang})
+                <p key={lang} className="mb-0.5 last:mb-0">
+                  <span className="text-gray-600 dark:text-zinc-500">
+                    {lang}:&nbsp;
+                  </span>
+                  {names.official}
                 </p>
               ))
             }
@@ -284,7 +309,7 @@ export function CountryPage(): JSX.Element {
   }
   return (
     <Page className="mx-3 rounded-lg sm:rounded-2xl sm:mx-5">
-      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg xs:h-[300px] sm:h-[350px] md:h-[500px] lg:h-[720px] sm:rounded-t-2xl">
+      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg xs:h-[300px] sm:h-[400px] md:h-[500px] sm:rounded-t-2xl">
         <CountryPhotos className="w-full h-full rounded-t-lg overflow-hidden sm:rounded-t-2xl" items={countryPhotos} />
         <FavoritesAction
           className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4"
