@@ -2,7 +2,6 @@ declare namespace NodeJS {
   export interface ProcessEnv {
     NODE_ENV: 'development' | 'production';
     BUILD_MODERNITY: 'modern' | 'legacy';
-    VERCEL_ENV: 'local' | 'development' | 'production';
     SECRETS_KEY_MAPTILER: string;
     SECRETS_KEY_UNSPLASH: string;
   }

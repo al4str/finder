@@ -54,14 +54,11 @@ class Definitions {
  * @param {BuildParams} params
  * */
 export async function configGetPluginDotenv(params) {
-  const { modern } = params;
   const definitions = new Definitions();
   definitions.fromEnvironment();
   definitions.add('NODE_ENV', process.env.NODE_ENV);
-  definitions.add('BROWSERSLIST_ENV', process.env.BROWSERSLIST_ENV);
-  definitions.add('BUILD_MODERNITY', modern
-    ? 'modern'
-    : 'legacy');
+  definitions.add('SECRETS_KEY_MAPTILER', process.env.SECRETS_KEY_MAPTILER);
+  definitions.add('SECRETS_KEY_UNSPLASH', process.env.SECRETS_KEY_UNSPLASH);
 
   return new webpack.DefinePlugin(definitions.toObject());
 }
