@@ -130,9 +130,12 @@
     @apply action w-8 h-8 transition-colors sm:w-12 sm:h-12;
   }
   .btn-blurred {
-    @apply background-blurred rounded-full hover:bg-white dark:hover:bg-zinc-900;
+    @apply background-blurred rounded-full hover:bg-white/50 dark:hover:bg-zinc-900/70;
   }
   .btn-flat {
+    @apply rounded-lg hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-zinc-900;
+  }
+  .btn-link {
     @apply rounded-lg hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-zinc-700 dark:active:bg-zinc-600;
   }
   .btn-full {
@@ -145,7 +148,7 @@
     @apply block h-5 w-5 shrink-0 fill-current transition-colors sm:w-8 sm:h-8;
   }
   .btn-flat .btn-icon {
-    @apply text-gray-800 dark:text-zinc-500;
+    @apply text-gray-800 dark:text-zinc-700;
   }
   .btn-label {
     @apply min-w-0 text-sm truncate;

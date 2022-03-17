@@ -73,7 +73,7 @@ export function SearchField(props: Props): JSX.Element {
         Search for country
       </label>
       <Input
-        className="field h-10 w-full pl-8 pr-3 font-medium text-gray-900 placeholder-gray-400 border border-transparent bg-white rounded-lg ring-0 focus:text-gray-900 focus:border-blue-600 focus:bg-white dark:text-white dark:placeholder-zinc-500 dark:caret-blue-500 dark:bg-zinc-900 dark:focus:border-blue-500 transition-colors sm:h-12 sm:pl-10"
+        className="peer field h-10 w-full pl-8 pr-3 font-medium text-gray-900 placeholder-gray-400 border border-transparent bg-gray-200 rounded-lg ring-0 focus:text-gray-900 focus:border-blue-600 hover:bg-white focus:bg-white dark:text-white dark:placeholder-zinc-500 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:bg-zinc-700 transition-colors sm:h-12 sm:pl-10"
         id="search-field"
         ref={fieldRef}
         name="search"

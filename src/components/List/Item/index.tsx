@@ -46,7 +46,7 @@ export function ListItem(props: Props): JSX.Element {
 
   return (
     <Anchor
-      className={clsx('block p-2 rounded-lg background sm:p-3 sm:rounded-2xl', className)}
+      className={clsx('block p-2 rounded-lg bg-gray-200 hover:bg-white dark:bg-zinc-800 dark:hover:bg-zinc-700 sm:p-3 sm:rounded-2xl transition-colors', className)}
       type="link"
       to={link}
       onClick={handleHistory}
