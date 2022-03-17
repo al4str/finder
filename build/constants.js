@@ -24,7 +24,7 @@ export const INJECTABLE_KEY_CHUNKS = '__INJECTABLE_CHUNKS__';
 /** @type {Array<BuildLinkItem>} */
 export const LINK_ITEMS = [
   {
-    originalPath: 'favicon.svg',
+    originalPath: 'assets/favicon.svg',
     attributes: {
       rel: 'icon',
       type: 'image/svg+xml',
