@@ -10,10 +10,9 @@ import CssMinimizer from 'css-minimizer-webpack-plugin';
  * */
 
 const FRAMEWORK_PACKAGES = [
-  'classnames',
+  'clsx',
   'history',
   'mini-create-react-context',
-  'hoist-non-react-statics',
   'react',
   'react-dom',
   'react-router',
