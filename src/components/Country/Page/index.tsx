@@ -20,11 +20,10 @@ export function CountryPage(): JSX.Element {
   }, [code]);
   useEffect(() => {
     if (ready && item) {
-      const [lat, lng] = item.latlng;
-      mapSetPosition({
-        coordinates: [lng, lat],
-        zoom: 7,
-      });
+      mapSetPosition((prevPosition) => ({
+        ...prevPosition,
+        coordinates: item.latlng,
+      }));
     }
   }, [ready, item]);
 

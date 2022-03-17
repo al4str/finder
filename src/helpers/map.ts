@@ -4,6 +4,7 @@ import { storeCreate } from '@/utils/store';
 export type MapCoordinates = Coordinate;
 
 export interface MapPosition {
+  /* Lat/Lng */
   coordinates: MapCoordinates;
   zoom: number;
 }
@@ -16,7 +17,7 @@ interface State {
 }
 
 const initialState: State = {
-  coordinates: [-0.12755, 51.507222],
+  coordinates: [51.507222, -0.12755],
   zoom: 7,
 };
 
@@ -37,11 +38,8 @@ export function useMapStore() {
   return getState();
 }
 
-export function mapSetPosition(position: MapPosition): void {
-  dispatch('SET_POSITION', {
-    coordinates: position.coordinates,
-    zoom: position.zoom,
-  });
+export function mapSetPosition(updater: (prev: MapPosition) => MapPosition): void {
+  dispatch('SET_POSITION', updater(getState()));
 }
 
 function reducer(

@@ -3,12 +3,15 @@ import OpenLayerMap from 'ol/Map';
 import OpenLayerTileLayer from 'ol/layer/Tile';
 import OpenLayerView from 'ol/View';
 import OpenLayerXYZ from 'ol/source/XYZ';
-import { fromLonLat, transform } from 'ol/proj';
+import OpenLayerPoint from 'ol/geom/Point';
+import { transform } from 'ol/proj';
 import { memo, useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import { KEY_MAPTILER } from '@/constants';
-import { MapCoordinates, mapGetState, useMapStore } from '@/helpers/map';
-import { useViewportSize, viewportGetSize } from '@/hooks/viewportSize';
+import { MapCoordinates, useMapStore, mapGetState } from '@/helpers/map';
+import { useViewportSize } from '@/hooks/viewportSize';
+
+const DURATION = 2000;
 
 interface Props {
   className?: string;
@@ -16,42 +19,36 @@ interface Props {
 
 export const Map = memo((props: Props): JSX.Element => {
   const { className = '' } = props;
-  const elRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<null | OpenLayerMap>(null);
   const sizes = useViewportSize();
+  const elRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<OpenLayerMap>(getMap());
+  const viewRef = useRef<OpenLayerView>(getView());
   const { coordinates, zoom } = useMapStore();
 
   useEffect(() => {
-    const map = mapRef.current;
-    if (map instanceof OpenLayerMap) {
-      map.getView().animate({
-        center: fromLonLat(coordinates),
-        zoom,
-        duration: 2000,
-      });
-    }
-  }, [coordinates, zoom]);
-  useEffect(() => {
     const el = elRef.current;
     const map = mapRef.current;
-    if (el instanceof HTMLDivElement && map === null) {
-      mapRef.current = getMap(el);
+    const view = viewRef.current;
+    if (el instanceof HTMLDivElement) {
+      map.setTarget(el);
+      map.setView(view);
     }
   }, []);
   useEffect(() => {
     const map = mapRef.current;
-    if (map instanceof OpenLayerMap) {
-      const position = mapGetState();
-      const view = getView(position.coordinates, position.zoom);
-      map.setView(view);
-    }
-  }, [sizes]);
+    const view = viewRef.current;
+    const point = getPoint(coordinates);
+    map.updateSize();
+    view.fit(point, {
+      size: map.getSize(),
+      padding: getPadding(),
+      maxZoom: zoom,
+      duration: DURATION,
+    });
+  }, [sizes, coordinates, zoom]);
 
   return (
     <div className={clsx('pointer-events-none', className)}>
-      <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
-        <span className="block text-gray-600">Preparing map..</span>
-      </div>
       <div className="absolute top-0 left-0 w-full h-full" ref={elRef}>
       </div>
     </div>
@@ -60,11 +57,8 @@ export const Map = memo((props: Props): JSX.Element => {
 
 const URL = 'https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}@2x.jpg';
 
-function getMap(
-  el: HTMLDivElement,
-): OpenLayerMap {
+function getMap(): OpenLayerMap {
   return new OpenLayerMap({
-    target: el,
     layers: [
       new OpenLayerTileLayer({
         source: new OpenLayerXYZ({
@@ -78,26 +72,36 @@ function getMap(
   });
 }
 
-function getView(
-  coordinates: MapCoordinates,
-  zoom: number,
-): OpenLayerView {
+function getView(): OpenLayerView {
+  const { coordinates, zoom } = mapGetState();
+  const center = getCoordinates(coordinates);
+  const padding = getPadding();
+
   return new OpenLayerView({
     projection: 'EPSG:3857',
-    center: transform(coordinates, 'EPSG:4326', 'EPSG:3857'),
+    center,
     zoom,
-    padding: getPadding(),
+    padding,
   });
+}
+
+function getPoint(coordinates: MapCoordinates): OpenLayerPoint {
+  return new OpenLayerPoint(getCoordinates(coordinates));
+}
+
+function getCoordinates(coordinates: MapCoordinates): MapCoordinates {
+  const [lat = 0, lng = 0] = coordinates;
+
+  return transform([lng, lat], 'EPSG:4326', 'EPSG:3857');
 }
 
 const SAFE_MARGIN = 12;
 
 function getPadding(): [number, number, number, number] {
-  const { visualHeight } = viewportGetSize();
   const header = window.document.getElementById('header');
   const space = window.document.getElementById('space');
   const headerHeight = header instanceof HTMLElement
-    ? header.clientHeight
+    ? header.clientHeight + SAFE_MARGIN
     : SAFE_MARGIN;
   const spaceHeight = space instanceof HTMLElement
     ? space.clientHeight
@@ -106,7 +110,7 @@ function getPadding(): [number, number, number, number] {
   return [
     headerHeight,
     SAFE_MARGIN,
-    visualHeight - spaceHeight,
+    spaceHeight,
     SAFE_MARGIN,
   ];
 }
