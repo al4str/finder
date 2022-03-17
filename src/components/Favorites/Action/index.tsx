@@ -28,7 +28,7 @@ export function FavoritesAction(props: Props): JSX.Element {
     return (
       <button
         className={clsx(
-          'btn btn-flat block w-8 h-8 rounded-md',
+          'btn btn-blurred block w-8 !p-0',
           className,
         )}
         type="button"

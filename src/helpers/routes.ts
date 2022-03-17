@@ -4,7 +4,6 @@ export const ROUTES = {
   main: '/',
   history: '/history',
   favorites: '/favorites',
-  search: '/search',
   country: '/country/:code',
 } as const;
 
@@ -32,11 +31,6 @@ const ROUTES_PARAMS: Record<RoutePath, RouteParams> = {
       'components--Favorites--Page',
     ],
   },
-  [ROUTES.search]: {
-    chunks: [
-      'components--Search--Page',
-    ],
-  },
   [ROUTES.country]: {
     chunks: [
       'components--Country-Page',
@@ -54,14 +48,6 @@ export function routesGetParams(pathname: string): RouteParams {
   return {
     chunks,
   };
-}
-
-export function routesDoesMatch(pathname = '', matchers: string[] = []): boolean {
-  const index = matchers.findIndex((routePath) => {
-    return Boolean(matchPath(routePath, pathname));
-  });
-
-  return index !== -1;
 }
 
 export function routesReplace(

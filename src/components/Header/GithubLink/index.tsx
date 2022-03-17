@@ -11,7 +11,7 @@ export function HeaderGithubLink(props: Props): JSX.Element {
 
   return (
     <Anchor
-      className={clsx('btn btn-small btn-flat', className)}
+      className={clsx('btn btn-flat', className)}
       type="anchor"
       to="https://github.com/al4str/finder"
       target="_blank"

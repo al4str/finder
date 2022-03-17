@@ -31,7 +31,7 @@ export function HeaderColorScheme(props: Props): JSX.Element {
 
   return (
     <button
-      className={clsx('btn btn-small btn-flat', className)}
+      className={clsx('btn btn-flat', className)}
       type="button"
       title={label}
       aria-label={label}

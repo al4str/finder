@@ -8,6 +8,8 @@ export const ENV_DEPLOY = process.env.DEPLOY_ENV || 'local';
 
 export const KEY_MAPTILER = process.env.SECRETS_KEY_MAPTILER || '';
 
+export const KEY_UNSPLASH = process.env.SECRETS_KEY_UNSPLASH || '';
+
 export const GLOBAL_NAME_ASSETS = '__INJECTABLE_ASSETS__';
 
 export const GLOBAL_NAME_CHUNKS = '__INJECTABLE_CHUNKS__';

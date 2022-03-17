@@ -67,7 +67,7 @@ export function ListItem(props: Props): JSX.Element {
         </span>
         {hasFlag && (
           <span
-            className="w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat"
+            className="w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat bg-contain"
             style={{
               backgroundImage: `url(${flag})`,
             }}

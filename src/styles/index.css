@@ -18,7 +18,7 @@
   }
 
   body {
-    @apply text-gray-900 dark:text-white bg-gradient-to-r from-slate-200 to-slate-300 bg-fixed;
+    @apply text-gray-900 dark:text-white bg-fixed background-gradient;
     height: 100%;
     margin: 0;
     font-family: inherit;
@@ -69,20 +69,18 @@
     font-family: 'Average', serif;
   }
 
-  .overflow-scrolling-touch {
-    -webkit-overflow-scrolling: touch;
+  .lock {
+    overflow: hidden;
+    user-select: none;
+    touch-action: none;
+    -webkit-touch-callout: none;
+  }
+  .lock::selection {
+    background: transparent;
   }
 
   .tap-highlight {
     -webkit-tap-highlight-color: transparent;
-  }
-
-  .touch-manipulation {
-    touch-action: manipulation;
-  }
-
-  .touch-none {
-    touch-action: none;
   }
 
   .z-app {
@@ -109,12 +107,10 @@
     z-index: 3;
   }
 
-  .z-tooltips {
-    z-index: 5;
-  }
-
-  .z-popovers {
-    z-index: 6;
+  @media (min-width: 641px) {
+    .lock {
+      overflow-y: auto;
+    }
   }
 }
 
@@ -131,66 +127,28 @@
   }
 
   .btn {
-    @apply action transition-colors;
+    @apply action h-8 px-2 transition-colors;
   }
-  .btn-primary {
-    @apply bg-blue-600 font-medium text-white hover:bg-blue-500 active:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400 dark:active:bg-blue-600;
+  .btn-blurred {
+    @apply background-blurred rounded-full hover:bg-white dark:hover:bg-zinc-900;
   }
   .btn-flat {
-    @apply font-medium hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-zinc-700 dark:active:bg-zinc-600;
-  }
-  .btn-disabled {
-    @apply pointer-events-none;
-  }
-  .btn-primary.btn-disabled {
-    @apply bg-gray-200 text-gray-400 dark:bg-zinc-700 dark:text-zinc-500;
-  }
-  .btn-flat.btn-disabled {
-    @apply text-gray-300 dark:text-zinc-500;
+    @apply rounded-lg hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-zinc-700 dark:active:bg-zinc-600;
   }
   .btn-full {
     @apply block w-full;
-  }
-  .btn-small {
-    @apply h-8 rounded-lg px-2;
-  }
-  .btn-medium {
-    @apply h-10 rounded-xl px-2;
   }
   .btn-wrp {
     @apply action-wrp;
   }
   .btn-icon {
-    @apply block shrink-0 fill-current transition-colors;
-  }
-  .btn-small .btn-icon {
-    @apply h-5 w-5;
-  }
-  .btn-medium .btn-icon {
-    @apply h-5 w-5;
+    @apply block h-5 w-5 shrink-0 fill-current transition-colors;
   }
   .btn-flat .btn-icon {
     @apply text-gray-400 dark:text-zinc-500;
   }
-  .btn-disabled .btn-icon {
-    @apply text-gray-300 dark:text-zinc-600;
-  }
   .btn-label {
-    @apply min-w-0 truncate;
-  }
-  .btn-small .btn-label {
-    @apply text-sm;
-  }
-  .btn-medium .btn-label {
-    @apply text-base;
-  }
-  .btn-small .btn-icon + .btn-label,
-  .btn-small .btn-label + .btn-icon {
-    @apply ml-1;
-  }
-  .btn-medium .btn-icon + .btn-label,
-  .btn-medium .btn-label + .btn-icon {
-    @apply ml-2;
+    @apply min-w-0 text-sm truncate;
   }
 
   .heading {
@@ -207,6 +165,9 @@
   }
   .background-blurred {
     @apply backdrop-blur-sm bg-white/30 dark:bg-zinc-900/50;
+  }
+  .background-gradient {
+    @apply bg-gradient-to-r from-slate-200 to-slate-300;
   }
 
   .skeleton {

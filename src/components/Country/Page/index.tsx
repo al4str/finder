@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { mapSetPosition } from '@/helpers/map';
 import { useSearchStore } from '@/helpers/search';
-import { countryInit, useCountryStore, countryGetDescription } from '@/helpers/country';
+import { countryInit, countryGetDescription, useCountryStore } from '@/helpers/country';
+import { photosFetch, usePhotosStore } from '@/helpers/photos';
 import { Page } from '@/components/Page';
 import { Anchor } from '@/components/UI/Anchor';
 import { CountryNotFound } from '@/components/Country/NotFound';
 import { CountryDetails } from '@/components/Country/Details';
 import { FavoritesAction } from '@/components/Favorites/Action';
+import { CountryPhotos } from '@/components/Country/Photos';
 
 interface DetailDataItem {
   name: string;
@@ -21,16 +23,18 @@ export function CountryPage(): JSX.Element {
   const code = rawCode.toUpperCase();
   const { items } = useSearchStore();
   const { pending, ready, notFound } = useCountryStore();
+  const { photos } = usePhotosStore();
   const item = items.get(code);
-  const name = item?.name?.official;
+  const name = item?.name?.common || '';
   const flag = item?.flags?.svg || item?.flags?.png || '';
   const hasFlag = pending || Boolean(flag);
+  const countryPhotos = photos.get(name) || [];
 
   const details = useMemo<DetailDataItem[]>(() => {
     return [
       {
-        name: 'name.common',
-        value: item?.name?.common,
+        name: 'name.official',
+        value: item?.name?.official,
       },
       {
         name: 'name.nativeName',
@@ -258,6 +262,11 @@ export function CountryPage(): JSX.Element {
     }
   }, [code]);
   useEffect(() => {
+    if (name) {
+      void photosFetch(name);
+    }
+  }, [name]);
+  useEffect(() => {
     if (ready && item) {
       const ratio = Math.ceil((28 * item.area) / 17000000);
       const zoom = Math.min(Math.max(2, 28 - ratio), 14);
@@ -276,39 +285,45 @@ export function CountryPage(): JSX.Element {
     );
   }
   return (
-    <Page className="mx-3 p-2 rounded-lg background">
-      <div className="flex items-center">
-        <span className="ml-auto mr-0.5 text-gray-600">To favorites</span>
-        <FavoritesAction action code={code} />
+    <Page className="mx-3 rounded-lg">
+      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg overflow-hidden">
+        <CountryPhotos className="w-full h-full" items={countryPhotos} />
+        <FavoritesAction
+          className="absolute bottom-2 left-2"
+          action
+          code={code}
+        />
       </div>
-      <div className="flex mt-3">
-        <h1 className={clsx('text-2xl font-serif mr-2', pending && 'skeleton')}>
-          {pending ? 'Pending' : name}
-        </h1>
-        {hasFlag && (
-          <span
-            className={clsx(
-              'w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat',
-              pending && 'skeleton',
-            )}
-            style={{
-              backgroundImage: `url(${flag})`,
-            }}
-          />
-        )}
+      <div className="p-2 background rounded-b-lg">
+        <div className="flex">
+          <h1 className={clsx('text-3xl font-serif mr-2', pending && 'skeleton')}>
+            {pending ? 'Pending' : name}
+          </h1>
+          {hasFlag && (
+            <span
+              className={clsx(
+                'w-8 h-8 p-1 shrink-0 ml-auto bg-center bg-no-repeat bg-contain',
+                pending && 'skeleton',
+              )}
+              style={{
+                backgroundImage: `url(${flag})`,
+              }}
+            />
+          )}
+        </div>
+        <dl className="mt-3">
+          {details.map((detail) => (
+            <CountryDetails
+              key={detail.name}
+              className="mb-3 last:mb-0"
+              pending={pending}
+              label={countryGetDescription(detail.name)}
+            >
+              {detail.value}
+            </CountryDetails>
+          ))}
+        </dl>
       </div>
-      <dl className="mt-3">
-        {details.map((detail) => (
-          <CountryDetails
-            key={detail.name}
-            className="mb-3 last:mb-0"
-            pending={pending}
-            label={countryGetDescription(detail.name)}
-          >
-            {detail.value}
-          </CountryDetails>
-        ))}
-      </dl>
     </Page>
   );
 }

@@ -32,7 +32,7 @@ export function HistoryPage(): JSX.Element {
         <h1 className="heading">Search history</h1>
         {hasItems && (
           <button
-            className="ml-auto btn btn-small btn-flat"
+            className="ml-auto btn btn-flat"
             type="button"
             aria-label="Clear your search history"
             onClick={handleRemove}

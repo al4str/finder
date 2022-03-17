@@ -4,6 +4,7 @@ declare namespace NodeJS {
     BUILD_MODERNITY: 'modern' | 'legacy';
     DEPLOY_ENV: 'local' | 'development' | 'production';
     SECRETS_KEY_MAPTILER: string;
+    SECRETS_KEY_UNSPLASH: string;
   }
 }
 

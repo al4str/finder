@@ -32,7 +32,7 @@ export function FavoritesPage(): JSX.Element {
         <h1 className="heading">Favorite countries</h1>
         {hasItems && (
           <button
-            className="ml-auto btn btn-small btn-flat"
+            className="ml-auto btn btn-flat"
             type="button"
             aria-label="Clear favorites list"
             onClick={handleRemove}

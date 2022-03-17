@@ -23,11 +23,6 @@ export const ROUTES_PAGES: RoutePage[] = [
       .then((module) => ({ default: module.FavoritesPage }))),
   },
   {
-    url: ROUTES.search,
-    Component: lazy(() => import('@/components/Search/Page')
-      .then((module) => ({ default: module.SearchPage }))),
-  },
-  {
     url: ROUTES.country,
     Component: lazy(() => import('@/components/Country/Page')
       .then((module) => ({ default: module.CountryPage }))),
