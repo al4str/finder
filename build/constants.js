@@ -1,7 +1,12 @@
 import path from 'path';
 import dotenv from 'dotenv';
 
-dotenv.config();
+try {
+  dotenv.config();
+}
+catch (err) {
+  // silence
+}
 
 export const ROOT_DIR = process.cwd();
 
@@ -10,8 +15,6 @@ export const DIST_DIR = path.join(ROOT_DIR, 'dist');
 export const PORT = process.env.DEV_PORT || '';
 
 export const HOST = process.env.DEV_HOST || '';
-
-export const DEPLOY_ENV = process.env.VERCEL_ENV || 'local';
 
 export const PUBLIC_PATH = '/';
 

@@ -23,14 +23,19 @@ class Definitions {
    * @return {void}
    * */
   fromEnvironment() {
-    const envPath = path.join(ROOT_DIR, '.env');
-    const envRaw = fs.readFileSync(envPath);
-    const envRawDefinitions = dotenv.parse(envRaw);
-    Object
-      .entries(envRawDefinitions)
-      .forEach(([name, value]) => {
-        this.map.set(name, value);
-      });
+    try {
+      const envPath = path.join(ROOT_DIR, '.env');
+      const envRaw = fs.readFileSync(envPath);
+      const envRawDefinitions = dotenv.parse(envRaw);
+      Object
+        .entries(envRawDefinitions)
+        .forEach(([name, value]) => {
+          this.map.set(name, value);
+        });
+    }
+    catch (err) {
+      // silence
+    }
   }
   /**
    * @return {Record<string, string>}

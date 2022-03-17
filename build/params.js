@@ -1,6 +1,11 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+try {
+  dotenv.config();
+}
+catch (err) {
+  // silence
+}
 
 /**
  * @return {BuildParams}
