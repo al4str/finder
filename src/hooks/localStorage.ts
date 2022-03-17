@@ -18,6 +18,7 @@ export function useLocalStorage<T>(
     return localStorageGet(key, fallback);
   });
   const valueRef = useRef(value);
+  valueRef.current = value;
 
   const handleStorageChange = useCallback(() => {
     setValue(localStorageGet(key, fallback));
@@ -30,16 +31,14 @@ export function useLocalStorage<T>(
         ? valueUpdater(prevValue)
         : valueUpdater;
       localStorageSet(key, nextValue);
-      handleStorageUpdate(handleStorageChange);
+      handleStorageUpdate();
     },
-    [key, handleStorageChange],
+    [key],
   );
 
   useEffect(() => {
-    valueRef.current = value;
-  }, [value]);
-  useEffect(() => {
     subscriberAdd(handleStorageChange);
+
     return () => {
       subscriberDelete(handleStorageChange);
     };
@@ -51,15 +50,14 @@ export function useLocalStorage<T>(
 export function localStorageGet<T>(
   key: string,
   fallback: T,
-  defaultWhenNull = true,
 ): T {
-  const value = jsonSafeParse<T>(
+  const storedValue = jsonSafeParse<{ data: T }>(
     window.localStorage.getItem(key) || '',
-    fallback,
+    { data: fallback },
   );
-  return defaultWhenNull && value === null
+  return storedValue === null
     ? fallback
-    : value;
+    : storedValue.data;
 }
 
 export function localStorageSet<T>(key: string, nextValue: T): void {

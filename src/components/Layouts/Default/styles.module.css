@@ -1,9 +1,0 @@
-.safeBottom {
-  @apply pb-3;
-}
-
-@supports (bottom: env(safe-area-inset-bottom)) {
-  .safeBottom {
-    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
-  }
-}

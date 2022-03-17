@@ -70,6 +70,79 @@ export async function countryInit(code: CountryCode) {
   });
 }
 
+export function countryGetDescription(name: string): string {
+  switch (name) {
+    case 'name.common':
+      return 'Common name';
+    case 'name.official':
+      return 'Official name';
+    case 'name.nativeName':
+      return 'Native name';
+    case 'tld':
+      return 'Top-level domains';
+    case 'cca2':
+      return 'ISO 3166-1 alpha-2 code';
+    case 'ccn3':
+      return 'ISO 3166-1 numeric code';
+    case 'cca3':
+      return 'ISO 3166-1 alpha-3code';
+    case 'cioc':
+      return 'International Olympic Committee code';
+    case 'independent':
+      return ' Independence status';
+    case 'status':
+      return 'Assignment status';
+    case 'unMember':
+      return 'UN Member status';
+    case 'currencies':
+      return 'Currencies';
+    case 'idd':
+      return 'International Direct Dialing';
+    case 'capital':
+      return 'Capital cities';
+    case 'altSpellings':
+      return 'Alternative spellings';
+    case 'region':
+      return 'Region';
+    case 'subregion':
+      return 'Subregion';
+    case 'languages':
+      return 'List of official languages';
+    case 'translations':
+      return 'List of name translations';
+    case 'latlng':
+      return 'Latitude and longitude';
+    case 'demonyms':
+      return 'Name of residents';
+    case 'landlocked':
+      return 'Landlocked status';
+    case 'area':
+      return 'Land area, km²';
+    case 'flag':
+      return 'Emoji flag';
+    case 'maps':
+      return 'Map links';
+    case 'population':
+      return 'Population';
+    case 'gini':
+      return 'Gini ratio, a measure of statistical dispersion';
+    case 'fifa':
+      return 'FIFA, three-letter country code';
+    case 'car':
+      return 'Car signs and driving side';
+    case 'timezones':
+      return 'Timezones';
+    case 'continents':
+      return 'Continents';
+    case 'coatOfArms':
+      return 'A coat of arms, a heraldic visual design';
+    case 'startOfWeek':
+      return 'Start of the week';
+    default:
+      return '';
+  }
+}
+
 function reducer(
   state: State,
   action: { type: Action; payload: State },

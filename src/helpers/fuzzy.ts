@@ -9,14 +9,25 @@ export function fuzzy(
 ): CountryDataItemShort[] {
   return items
     .map((item) => {
+      const searchQuery = query.toLowerCase();
+      const commonName = (item.name?.common || '').toLowerCase();
+      const officialName = (item.name?.official || '').toLowerCase();
+
       return {
         data: item,
-        rating: stringSimilarity(query, item.name.common),
+        commonName,
+        byCommon: stringSimilarity(searchQuery, commonName),
+        byOfficial: stringSimilarity(searchQuery, officialName),
       };
     })
-    .filter((item) => item.rating >= SIMILARITY_THRESHOLD)
+    .filter((item) => {
+      return item.byCommon >= SIMILARITY_THRESHOLD
+        || item.byOfficial >= SIMILARITY_THRESHOLD;
+    })
     .sort((a, b) => {
-      return b.rating - a.rating;
+      return a.byCommon - b.byCommon
+        || a.byOfficial - b.byOfficial
+        || a.commonName.localeCompare(b.commonName);
     })
     .map((item) => item.data);
 }

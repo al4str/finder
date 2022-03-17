@@ -28,11 +28,9 @@ export function SearchField(props: Props): JSX.Element {
     if (field instanceof HTMLInputElement) {
       const nextQuery = field.value.trim();
       window.clearTimeout(timerRef.current);
-      if (!nextQuery || nextQuery.length >= 2) {
-        timerRef.current = window.setTimeout(() => {
-          void searchExec(nextQuery);
-        }, 250);
-      }
+      timerRef.current = window.setTimeout(() => {
+        void searchExec(nextQuery);
+      }, 150);
     }
   }, [fieldRef]);
 
@@ -48,6 +46,19 @@ export function SearchField(props: Props): JSX.Element {
       }
     };
   }, [handleSearch]);
+  useEffect(() => {
+    const field = fieldRef.current;
+    if (field instanceof HTMLInputElement
+      && window.document.activeElement !== field) {
+      field.value = query;
+    }
+
+    return () => {
+      if (field instanceof HTMLInputElement) {
+        field.value = '';
+      }
+    };
+  }, [query]);
 
   return (
     <div className={clsx('relative', className)}>

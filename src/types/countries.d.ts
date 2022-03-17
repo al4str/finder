@@ -1,5 +1,7 @@
+import { MapCoordinates } from '@/helpers/map';
+
 export interface CountryDataItem {
-  name: CountryName;
+  name: CountryNames;
   tld: string[];
   cca2: string;
   ccn3: string;
@@ -7,10 +9,17 @@ export interface CountryDataItem {
   cioc: string;
   independent: boolean;
   status: string;
+  unMember: boolean;
   currencies: {
-    [currencyCode: string]: CountryCurrency;
+    [currency: string]: {
+      name: string;
+      symbol: string;
+    };
   };
-  idd: CountryIddCode;
+  idd: {
+    root: string;
+    suffixes: string[];
+  };
   capital: string[];
   altSpellings: string[];
   region: string;
@@ -19,44 +28,59 @@ export interface CountryDataItem {
     [languageCode: string]: string;
   };
   translations: {
-    [languageCode: string]: CountryOfficialAndCommon;
+    [languageCode: string]: Omit<CountryNames, 'nativeName'>;
   };
-  latlng: [number, number];
+  latlng: MapCoordinates;
   demonyms: {
-    [languageCode: string]: CountryDemonyms;
+    [languageCode: string]: {
+      f: string;
+      m: string;
+    };
   };
   landlocked: boolean;
-  borders: string[];
   area: number;
   flag: string;
+  maps: {
+    googleMaps: string;
+    openStreetMaps: string;
+  };
+  population: number;
+  gini: {
+    [year: string]: number;
+  };
+  fifa: string;
+  car: {
+    signs: string[];
+    side: string;
+  };
+  timezones: string[];
+  continents: string[];
+  flags: {
+    svg: string;
+    png: string;
+  };
+  coatOfArms: {
+    svg: string;
+    png: string;
+  };
+  startOfWeek: string;
+  capitalInfo: {
+    latlng: MapCoordinates;
+  };
+  postalCode: {
+    format: string;
+    regex: string;
+  };
 }
 
 export type CountryCode = CountryDataItem['cca2'];
 
-export type CountryDataItemShort = Pick<CountryDataItem, 'name' | 'cca2' | 'flag'>;
+export type CountryDataItemShort = Pick<CountryDataItem, 'name' | 'cca2' | 'flags'>;
 
-export interface CountryName extends CountryOfficialAndCommon {
-  native: {
-    [languageCode: string]: CountryOfficialAndCommon;
-  };
-}
-
-export interface CountryOfficialAndCommon {
+export interface CountryNames {
   common: string;
   official: string;
-}
-
-export interface CountryCurrency {
-  name: string;
-  symbol: string;
-}
-
-export interface CountryIddCode {
-  root: string;
-  suffixes: string[];
-}
-
-export interface CountryDemonyms {
-  f: string;
-  m: string;
+  nativeName: {
+    [languageCode: string]: CountryNames;
+  };
 }

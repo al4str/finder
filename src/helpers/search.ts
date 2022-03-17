@@ -3,7 +3,7 @@ import { API_URL } from '@/constants';
 import { storeCreate } from '@/utils/store';
 import { fetchExec } from '@/utils/fetch';
 
-type Action = 'SET_READY_STATE' | 'SET_BY' | 'SET_NAMES'
+type Action = 'SET_READY_STATE' | 'SET_ACTIVE' | 'SET_BY' | 'SET_NAMES'
   | 'SET_ITEMS' | 'SET_QUERY' | 'SET_RESULTS';
 
 type ReadyState = 'INITIAL' | 'FETCHING' | 'READY' | 'SEARCHING';
@@ -18,6 +18,7 @@ interface State {
   searching: boolean;
   found: boolean;
   notFound: boolean;
+  active: boolean;
   by: SearchBy;
   names: Set<CountryDataItemShort>;
   items: Map<CountryCode, CountryDataItem>;
@@ -32,6 +33,7 @@ const initialState: State = {
   searching: false,
   found: false,
   notFound: false,
+  active: false,
   by: 'name',
   query: '',
   names: new Set(),
@@ -82,6 +84,11 @@ export async function searchExec(query: string) {
   dispatch('SET_QUERY', {
     query,
   });
+  if (!query) {
+    dispatch('SET_ACTIVE', {
+      active: false,
+    });
+  }
   if (!query || readySate === 'SEARCHING') {
     return;
   }
@@ -90,6 +97,12 @@ export async function searchExec(query: string) {
   });
   dispatch('SET_QUERY', {
     query,
+  });
+  dispatch('SET_RESULTS', {
+    results: new Set(),
+  });
+  dispatch('SET_ACTIVE', {
+    active: true,
   });
   const { by } = searchGetState();
   const res = await fetchExec<CountryDataItem[]>({
@@ -136,6 +149,12 @@ export function searchAddItem(item: CountryDataItem) {
   }
 }
 
+export function searchHide() {
+  dispatch('SET_ACTIVE', {
+    active: false,
+  });
+}
+
 function reducer(
   state: State,
   action: { type: Action; payload: State },
@@ -157,6 +176,11 @@ function reducer(
         notFound: ready && hasQuery && resultsLength === 0,
       };
     }
+    case 'SET_ACTIVE':
+      return {
+        ...state,
+        active: action.payload.active,
+      };
     case 'SET_BY':
       return {
         ...state,

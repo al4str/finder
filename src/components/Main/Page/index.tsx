@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import clsx from 'clsx';
 import { ROUTES, routesReplace } from '@/helpers/routes';
 import { useFavorites } from '@/helpers/favorites';
 import { useHistory } from '@/helpers/history';
@@ -6,6 +7,9 @@ import { Page } from '@/components/Page';
 import { MainLink } from '@/components/Main/Link';
 import { useSearchStore } from '@/helpers/search';
 import { randomNumber } from '@/utils/random';
+import { SearchResults } from '@/components/Search/Results';
+import { SearchBar } from '@/components/Search/Bar';
+import styles from './styles.module.css';
 
 export function MainPage(): JSX.Element {
   const [favorites] = useFavorites();
@@ -18,23 +22,30 @@ export function MainPage(): JSX.Element {
   const luckyLink = routesReplace(ROUTES.country, { code: luckyCode });
 
   return (
-    <Page>
-      <MainLink
-        to={luckyLink}
-        label={hasItem ? 'Feeling lucky' : 'Randomizing..'}
-      />
-      <MainLink
-        className="mt-3"
-        to={ROUTES.favorites}
-        label="Your favorites"
-        amount={favorites.length}
-      />
-      <MainLink
-        className="mt-3"
-        to={ROUTES.history}
-        label="Your search history"
-        amount={history.length}
-      />
-    </Page>
+    <>
+      <Page className="mx-3">
+        <MainLink
+          to={luckyLink}
+          label={hasItem ? 'Feeling lucky' : 'Randomizing..'}
+        />
+        <MainLink
+          className="mt-3"
+          to={ROUTES.favorites}
+          label="Your favorites"
+          amount={favorites.length}
+        />
+        <MainLink
+          className="mt-3"
+          to={ROUTES.history}
+          label="Your search history"
+          amount={history.length}
+        />
+      </Page>
+      <SearchResults className="mt-3" />
+      <SearchBar className={clsx(
+        'sticky z-app-search bottom-0 shrink-0',
+        styles.safeBottom,
+      )} />
+    </>
   );
 }
