@@ -41,7 +41,7 @@ export function FavoritesAction(props: Props): JSX.Element {
               'block w-6 h-6',
               filled
                 ? 'fill-current text-yellow-400'
-                : 'fill-transparent stroke-current text-gray-400',
+                : 'fill-transparent stroke-current text-gray-600',
             )}
           />
         </span>

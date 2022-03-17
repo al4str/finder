@@ -19,7 +19,7 @@ export function LayoutsDefault(props: Props): JSX.Element {
           id="space"
         >
           <div className="flex items-center justify-center w-full h-full">
-            <span className="block text-gray-600">Preparing map..</span>
+            <p className="message">Preparing map..</p>
           </div>
         </div>
         <main className="relative z-app-main mt-auto mb-3">

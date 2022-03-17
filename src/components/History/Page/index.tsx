@@ -44,7 +44,7 @@ export function HistoryPage(): JSX.Element {
         )}
       </div>
       {pending && (
-        <p>
+        <p className="message">
           Loading list..
         </p>
       )}
@@ -52,7 +52,7 @@ export function HistoryPage(): JSX.Element {
         <ListItems items={historyItems} />
       )}
       {ready && !hasItems && (
-        <p className="py-6 text-center text-sm text-gray-600">
+        <p className="message">
           Nothing there yet
         </p>
       )}

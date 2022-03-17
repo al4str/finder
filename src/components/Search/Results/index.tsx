@@ -6,6 +6,7 @@ import { scrollToY } from '@/utils/scroll';
 import { fuzzy } from '@/helpers/fuzzy';
 import { searchHide, useSearchStore } from '@/helpers/search';
 import { ListItems } from '@/components/List/Items';
+import { SearchBySelect } from '@/components/Search/BySelect';
 
 interface Props {
   className?: string;
@@ -14,7 +15,7 @@ interface Props {
 export function SearchResults(props: Props): JSX.Element {
   const { className = '' } = props;
   const { key } = useLocation();
-  const { searching, ready, active, query, names, results } = useSearchStore();
+  const { searching, ready, notFound, active, by, query, names, results } = useSearchStore();
 
   const resultItems = useMemo<CountryDataItemShort[]>(() => {
     const namesItems = Array.from(names);
@@ -28,14 +29,17 @@ export function SearchResults(props: Props): JSX.Element {
         return result;
       }, [] as CountryDataItemShort[]);
 
-    return fuzzy(query, mappedItems);
-  }, [query, names, results]);
+    if (by === 'name') {
+      return fuzzy(query, mappedItems);
+    }
+    return mappedItems;
+  }, [by, query, names, results]);
 
   useEffect(() => {
-    if (active && ready) {
+    if (active) {
       scrollToY(window.document.documentElement.scrollHeight);
     }
-  }, [active, ready]);
+  }, [active, resultItems]);
   useEffect(() => {
     searchHide();
   }, [key]);
@@ -49,11 +53,15 @@ export function SearchResults(props: Props): JSX.Element {
       id="search-results"
     >
       {searching && (
-        <p>Searching..</p>
+        <p className="message">Searching..</p>
+      )}
+      {notFound && (
+        <p className="message">Nothing found</p>
       )}
       {ready && (
         <ListItems items={resultItems} />
       )}
+      <SearchBySelect className="mt-3 pl-1" />
     </div>
   );
 }

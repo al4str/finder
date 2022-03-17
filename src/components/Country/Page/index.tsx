@@ -286,8 +286,8 @@ export function CountryPage(): JSX.Element {
   }
   return (
     <Page className="mx-3 rounded-lg">
-      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg overflow-hidden">
-        <CountryPhotos className="w-full h-full" items={countryPhotos} />
+      <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg">
+        <CountryPhotos className="w-full h-full rounded-t-lg overflow-hidden" items={countryPhotos} />
         <FavoritesAction
           className="absolute bottom-2 left-2"
           action

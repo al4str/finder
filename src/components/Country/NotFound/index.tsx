@@ -8,6 +8,6 @@ export function CountryNotFound(props: Props): JSX.Element {
   const { className = '' } = props;
 
   return (
-    <p className={clsx(className)}>Not found</p>
+    <p className={clsx('message', className)}>Not found</p>
   );
 }

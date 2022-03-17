@@ -44,7 +44,7 @@ export function FavoritesPage(): JSX.Element {
         )}
       </div>
       {pending && (
-        <p>
+        <p className="message">
           Loading list..
         </p>
       )}
@@ -52,7 +52,7 @@ export function FavoritesPage(): JSX.Element {
         <ListItems items={favoritesItems} />
       )}
       {ready && !hasItems && (
-        <p className="py-6 text-center text-sm text-gray-600">
+        <p className="message">
           Nothing there yet
         </p>
       )}

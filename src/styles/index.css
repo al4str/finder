@@ -156,7 +156,7 @@
   }
 
   .logo {
-    @apply text-4xl font-serif leading-8 rounded-lg;
+    @apply text-4xl font-serif leading-8 rounded-lg select-none;
     letter-spacing: -0.03em;
   }
 
@@ -172,5 +172,9 @@
 
   .skeleton {
     @apply text-transparent bg-gray-200 rounded-md;
+  }
+
+  .message {
+    @apply py-6 text-sm text-center text-gray-600;
   }
 }

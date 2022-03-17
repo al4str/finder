@@ -48,13 +48,13 @@ export function SearchField(props: Props): JSX.Element {
   }, [handleSearch]);
   useEffect(() => {
     const field = fieldRef.current;
-    if (field instanceof HTMLInputElement
-      && window.document.activeElement !== field) {
+    const notFocused = window.document.activeElement !== field;
+    if (field instanceof HTMLInputElement && notFocused) {
       field.value = query;
     }
 
     return () => {
-      if (field instanceof HTMLInputElement) {
+      if (field instanceof HTMLInputElement && notFocused) {
         field.value = '';
       }
     };
