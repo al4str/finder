@@ -1,7 +1,7 @@
 import { ReactNode, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
-import { mapSetPosition } from '@/helpers/map';
+import { mapSetPosition, mapCalculateZoom } from '@/helpers/map';
 import { useSearchStore } from '@/helpers/search';
 import { countryInit, countryGetDescription, useCountryStore } from '@/helpers/country';
 import { photosFetch, usePhotosStore } from '@/helpers/photos';
@@ -268,11 +268,9 @@ export function CountryPage(): JSX.Element {
   }, [name]);
   useEffect(() => {
     if (ready && item) {
-      const ratio = Math.ceil((28 * item.area) / 17000000);
-      const zoom = Math.min(Math.max(2, 28 - ratio), 14);
       mapSetPosition(() => ({
         coordinates: item.latlng,
-        zoom,
+        zoom: mapCalculateZoom(item.area),
       }));
     }
   }, [ready, item]);
