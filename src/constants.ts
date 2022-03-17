@@ -4,7 +4,7 @@ export const IS_PRODUCTION = ENV_NODE === 'production';
 
 export const ENV_MODERNITY = process.env.BUILD_MODERNITY || 'modern';
 
-export const ENV_DEPLOY = process.env.DEPLOY_ENV || 'local';
+export const ENV_DEPLOY = process.env.VERCEL_ENV || 'local';
 
 export const KEY_MAPTILER = process.env.SECRETS_KEY_MAPTILER || '';
 

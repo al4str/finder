@@ -11,7 +11,7 @@ export const PORT = process.env.DEV_PORT || '';
 
 export const HOST = process.env.DEV_HOST || '';
 
-export const DEPLOY_ENV = process.env.DEPLOY_ENV || 'local';
+export const DEPLOY_ENV = process.env.VERCEL_ENV || 'local';
 
 export const PUBLIC_PATH = '/';
 
