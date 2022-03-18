@@ -3,6 +3,7 @@ import { CountryDataItemShort } from '@/types/countries';
 import { useSearchStore } from '@/helpers/search';
 import { useHistory } from '@/helpers/history';
 import { Page } from '@/components/Page';
+import { BackAction } from '@/components/UI/Back';
 import { ListItems } from '@/components/List/Items';
 import Bin from '@/components/Icons/bin.svg';
 
@@ -29,6 +30,10 @@ export function HistoryPage(): JSX.Element {
   return (
     <Page className="mx-3 p-2 rounded-lg background-blurred sm:mx-5 sm:px-4 sm:pb-4 sm:rounded-2xl">
       <div className="flex items-center mb-1 sm:mb-2">
+        <BackAction
+          className="shrink-0 mr-1"
+          type="flat"
+        />
         <h1 className="heading text-lg sm:text-3xl">
           Search history
         </h1>

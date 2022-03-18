@@ -34,6 +34,10 @@ export function navigationGetHistory(): BrowserHistory {
   return HISTORY;
 }
 
+export function navigationGoBack(): void {
+  HISTORY.back();
+}
+
 export function navigationMount(): void {
   const { scrollMap } = getState();
   const elId = window.location.hash.replace('#', '');

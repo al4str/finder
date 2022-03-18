@@ -1,17 +1,18 @@
 import { ReactNode, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import clsx from 'clsx';
+import { shuffle } from '@/utils/shuffle';
 import { mapSetPosition, mapCalculateZoom } from '@/helpers/map';
 import { useSearchStore } from '@/helpers/search';
 import { countryInit, countryGetDescription, useCountryStore } from '@/helpers/country';
 import { photosFetch, usePhotosStore } from '@/helpers/photos';
 import { Page } from '@/components/Page';
 import { Anchor } from '@/components/UI/Anchor';
+import { BackAction } from '@/components/UI/Back';
 import { CountryNotFound } from '@/components/Country/NotFound';
 import { CountryDetails } from '@/components/Country/Details';
 import { FavoritesAction } from '@/components/Favorites/Action';
 import { CountryPhotos } from '@/components/Country/Photos';
-import { shuffle } from '@/utils/shuffle';
 
 interface DetailDataItem {
   name: string;
@@ -305,17 +306,21 @@ export function CountryPage(): JSX.Element {
 
   if (!code || notFound) {
     return (
-      <Page className="mx-3 p-2 rounded-lg background">
+      <Page className="mx-3 p-2 rounded-lg background sm:rounded-2xl sm:mx-5">
         <CountryNotFound />
       </Page>
     );
   }
   return (
-    <Page className="mx-3 rounded-lg sm:rounded-2xl sm:mx-5">
+    <Page className="mx-3 sm:mx-5">
       <div className="relative h-[250px] background-gradient bg-fixed rounded-t-lg xs:h-[300px] sm:h-[400px] md:h-[500px] sm:rounded-t-2xl">
         <CountryPhotos className="w-full h-full rounded-t-lg overflow-hidden sm:rounded-t-2xl" items={countryPhotos} />
-        <FavoritesAction
+        <BackAction
           className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4"
+          type="blurred"
+        />
+        <FavoritesAction
+          className="absolute bottom-2 left-12 sm:bottom-4 sm:left-20"
           action
           code={code}
         />

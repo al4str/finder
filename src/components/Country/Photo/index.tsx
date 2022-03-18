@@ -19,7 +19,7 @@ export function CountryPhoto(props: Props): JSX.Element {
       />
       <figcaption className="absolute right-2 bottom-2 sm:right-4 sm:bottom-4">
         <Anchor
-          className="action block h-8 px-2 text-sm rounded-2xl background-blurred pointer-events-auto sm:h-10 sm:px-3 sm:rounded-3xl"
+          className="btn btn-blurred block !w-auto px-2 text-xs pointer-events-auto sm:px-4 sm:text-base"
           type="anchor"
           to={`https://unsplash.com/@${user}`}
           target="_blank"
