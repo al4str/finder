@@ -1,7 +1,7 @@
 module.exports = {
   darkMode: "class",
   experimental: {
-    optimizeUniversalDefaults: false,
+    optimizeUniversalDefaults: true,
   },
   content: ['./src/**/*.{html,ts,tsx}'],
   theme: {

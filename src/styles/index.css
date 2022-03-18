@@ -180,7 +180,8 @@
     @apply bg-slate-100 dark:bg-zinc-800;
   }
   .background-blurred {
-    @apply backdrop-blur-sm bg-white/30 dark:bg-zinc-900/50;
+    @apply bg-white/30 dark:bg-zinc-900/50;
+    backdrop-filter: blur(4px);
   }
   .background-gradient {
     @apply bg-gradient-to-r from-slate-200 to-slate-300 dark:from-zinc-800 dark:to-zinc-700;
