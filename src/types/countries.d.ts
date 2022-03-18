@@ -1,4 +1,4 @@
-import { MapCoordinates } from '@/helpers/map';
+import { Coordinates } from '@/types/coordinates';
 
 export interface CountryDataItem {
   name: CountryNames;
@@ -30,7 +30,7 @@ export interface CountryDataItem {
   translations: {
     [languageCode: string]: Omit<CountryNames, 'nativeName'>;
   };
-  latlng: MapCoordinates;
+  latlng: Coordinates;
   demonyms: {
     [languageCode: string]: {
       f: string;
@@ -65,7 +65,7 @@ export interface CountryDataItem {
   };
   startOfWeek: string;
   capitalInfo: {
-    latlng: MapCoordinates;
+    latlng: Coordinates;
   };
   postalCode: {
     format: string;

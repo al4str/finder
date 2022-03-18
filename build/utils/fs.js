@@ -48,14 +48,6 @@ export function fsWriteFile(filePath, content) {
 
 /**
  * @param {string} filePath
- * @return {Promise<string|Error>}
- * */
-export function fsReadFile(filePath) {
-  return fs.promises.readFile(filePath, { encoding: 'utf-8' });
-}
-
-/**
- * @param {string} filePath
  * @return {string}
  * */
 export function fsPathToUrl(filePath) {

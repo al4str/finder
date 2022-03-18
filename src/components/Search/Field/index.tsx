@@ -1,19 +1,20 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { memo, useRef, useCallback, useEffect } from 'react';
 import clsx from 'clsx';
-import { Input } from '@/components/UI/Input';
+import { equal } from '@/utils/equal';
 import { searchExec, useSearchStore } from '@/helpers/search';
+import { Input } from '@/components/UI/Input';
 import Magnifier from '@/components/Icons/magnifier.svg';
 import Cross from '@/components/Icons/cross.svg';
 
 interface Props {
   className?: string;
+  query: string;
 }
 
-export function SearchField(props: Props): JSX.Element {
-  const { className = '' } = props;
+function Field(props: Props): JSX.Element {
+  const { className = '', query } = props;
   const timerRef = useRef(-1);
   const fieldRef = useRef<HTMLInputElement>(null);
-  const { query } = useSearchStore();
   const hasQuery = Boolean(query);
 
   const handleClear = useCallback(() => {
@@ -97,3 +98,19 @@ export function SearchField(props: Props): JSX.Element {
     </div>
   );
 }
+
+type OutProps = Omit<Props, 'query'>;
+
+export const SearchField = memo((props: OutProps): JSX.Element => {
+  const Wrapped = memo((innerProps: OutProps): JSX.Element => {
+    const { query } = useSearchStore();
+
+    return (
+      <Field query={query} {...innerProps} />
+    );
+  }, equal);
+
+  return (
+    <Wrapped {...props} />
+  );
+}, equal);

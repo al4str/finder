@@ -36,8 +36,22 @@ export function SearchResults(props: Props): JSX.Element {
   }, [by, query, names, results]);
 
   useEffect(() => {
-    if (active) {
-      scrollToY(window.document.documentElement.scrollHeight);
+    if (!active) {
+      return;
+    }
+    const root = window.document.documentElement;
+    const body = window.document.body;
+    const elResults = window.document.getElementById('search-results');
+    const elSearch = window.document.getElementById('search');
+    if (elResults instanceof HTMLElement && elSearch instanceof HTMLElement) {
+      const nextScroll = root.classList.contains('ios')
+        ? window.scrollY
+          + elResults.getBoundingClientRect().bottom
+          + elSearch.getBoundingClientRect().height
+          + 24
+          - window.innerHeight
+        : body.scrollHeight;
+      scrollToY(nextScroll);
     }
   }, [active, resultItems]);
   useEffect(() => {

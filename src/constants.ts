@@ -8,4 +8,6 @@ export const KEY_UNSPLASH = process.env.SECRETS_KEY_UNSPLASH || '';
 
 export const GLOBAL_NAME_CHUNKS = '__INJECTABLE_CHUNKS__';
 
+export const GLOBAL_NAME_ASSETS = '__INJECTABLE_ASSETS__';
+
 export const API_URL = 'https://restcountries.com/v3.1';

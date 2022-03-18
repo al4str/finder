@@ -1,5 +1,6 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import clsx from 'clsx';
+import { scrollToY } from '@/utils/scroll';
 import { ROUTES, routesReplace } from '@/helpers/routes';
 import { useFavorites } from '@/helpers/favorites';
 import { useHistory } from '@/helpers/history';
@@ -20,6 +21,10 @@ export function MainPage(): JSX.Element {
   const hasItem = Boolean(item);
   const luckyCode = (item?.cca2 || '').toLowerCase();
   const luckyLink = routesReplace(ROUTES.country, { code: luckyCode });
+
+  useEffect(() => {
+    scrollToY(window.document.body.scrollHeight);
+  }, []);
 
   return (
     <>

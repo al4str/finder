@@ -10,11 +10,11 @@ export function LayoutsDefault(props: Props): JSX.Element {
   const { children } = props;
 
   return (
-    <div className="relative z-app flex flex-col min-h-screen sm:text-lg">
-      <Map className="fixed z-app-map top-0 left-0 w-full h-screen" />
+    <div className="relative z-app flex flex-col min-h-screen-true sm:text-lg">
+      <Map className="fixed z-app-map top-0 left-0 w-full h-full" />
       <Header className="sticky z-app-header top-0 w-full" />
       <div
-        className="relative z-app-space w-full h-[50vw] min-h-[200px] shrink-0 pointer-events-none"
+        className="relative z-app-space w-full h-[50vw] min-h-[200px] shrink-0 pointer-events-none sm:h-[40vh] md:h-[35vh] lg:h[30vh]"
         id="space"
       >
         <div className="flex items-center justify-center w-full h-full">

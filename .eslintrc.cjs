@@ -209,6 +209,7 @@ module.exports = {
       files: ['*.d.ts'],
       rules: {
         'import/no-cycle': ['off'],
+        '@typescript-eslint/no-unused-vars': ['off'],
       },
     },
   ],

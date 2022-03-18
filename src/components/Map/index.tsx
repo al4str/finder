@@ -4,12 +4,15 @@ import OpenLayerLayerTile from 'ol/layer/Tile';
 import OpenLayerView from 'ol/View';
 import OpenLayerSourceXYZ from 'ol/source/XYZ';
 import OpenLayerPoint from 'ol/geom/Point';
-import { transform } from 'ol/proj';
+import { useGeographic as geo } from 'ol/proj';
 import { memo, useRef, useEffect } from 'react';
 import clsx from 'clsx';
+import { Coordinates } from '@/types/coordinates';
 import { KEY_MAPTILER } from '@/constants';
-import { MapCoordinates, useMapStore, mapGetState } from '@/helpers/map';
-import { useViewportSize, viewportGetSize } from '@/hooks/viewportSize';
+import { useMapStore, mapGetState } from '@/helpers/map';
+import { useViewportSize } from '@/hooks/viewportSize';
+
+geo();
 
 const DURATION = 1500;
 
@@ -19,7 +22,7 @@ interface Props {
 
 export const Map = memo((props: Props): JSX.Element => {
   const { className = '' } = props;
-  const sizes = useViewportSize();
+  const { visualWidth } = useViewportSize();
   const elRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<OpenLayerMap>(getMap());
   const viewRef = useRef<OpenLayerView>(getView());
@@ -40,12 +43,11 @@ export const Map = memo((props: Props): JSX.Element => {
     const point = getPoint(coordinates);
     map.updateSize();
     view.fit(point, {
-      size: map.getSize(),
       padding: getPadding(),
       maxZoom: zoom,
       duration: DURATION,
     });
-  }, [sizes, coordinates, zoom]);
+  }, [visualWidth, coordinates, zoom]);
 
   return (
     <div className={clsx('pointer-events-none', className)}>
@@ -85,20 +87,19 @@ function getView(): OpenLayerView {
   });
 }
 
-function getPoint(coordinates: MapCoordinates): OpenLayerPoint {
+function getPoint(coordinates: Coordinates): OpenLayerPoint {
   return new OpenLayerPoint(getCoordinates(coordinates));
 }
 
-function getCoordinates(coordinates: MapCoordinates): MapCoordinates {
+function getCoordinates(coordinates: Coordinates): Coordinates {
   const [lat = 0, lng = 0] = coordinates;
 
-  return transform([lng, lat], 'EPSG:4326', 'EPSG:3857');
+  return [lng, lat];
 }
 
 const SAFE_MARGIN = 12;
 
 function getPadding(): [number, number, number, number] {
-  const { visualHeight } = viewportGetSize();
   const header = window.document.getElementById('header');
   const space = window.document.getElementById('space');
   const headerHeight = header instanceof HTMLElement
@@ -109,9 +110,9 @@ function getPadding(): [number, number, number, number] {
     : SAFE_MARGIN;
 
   return [
-    headerHeight,
     SAFE_MARGIN,
-    visualHeight - spaceHeight,
+    SAFE_MARGIN,
+    spaceHeight + headerHeight + 2 * SAFE_MARGIN,
     SAFE_MARGIN,
   ];
 }

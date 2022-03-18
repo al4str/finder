@@ -1,24 +1,27 @@
-import { Coordinate } from 'ol/coordinate';
+import { CountryCode } from '@/types/countries';
+import { Coordinates, CoordinatesDataItem } from '@/types/coordinates';
 import { storeCreate } from '@/utils/store';
-
-export type MapCoordinates = Coordinate;
+import { assetsGetURL } from '@/utils/assets';
+import { fetchExec } from '@/utils/fetch';
 
 export interface MapPosition {
   /* Lat/Lng */
-  coordinates: MapCoordinates;
+  coordinates: Coordinates;
   zoom: number;
 }
 
-type Action = 'SET_POSITION';
+type Action = 'SET_POSITION' | 'SET_MAP';
 
 interface State {
   coordinates: MapPosition['coordinates'];
   zoom: MapPosition['zoom'];
+  byCode: Map<CountryCode, Coordinates>;
 }
 
 const initialState: State = {
-  coordinates: [51.507222, -0.12755],
-  zoom: 7,
+  coordinates: [75, -20],
+  zoom: 2,
+  byCode: new Map(),
 };
 
 const {
@@ -38,8 +41,17 @@ export function useMapStore() {
   return getState();
 }
 
-export function mapSetPosition(updater: (prev: MapPosition) => MapPosition): void {
-  dispatch('SET_POSITION', updater(getState()));
+export async function mapInit() {
+  await mapFetchCoordinates();
+}
+
+export function mapSetPosition(code: string, position: MapPosition): void {
+  const { byCode } = getState();
+  const coordinates = byCode.get(code);
+  dispatch('SET_POSITION', {
+    coordinates: coordinates || position.coordinates,
+    zoom: position.zoom,
+  });
 }
 
 export function mapCalculateZoom(area: number): number {
@@ -79,6 +91,20 @@ export function mapCalculateZoom(area: number): number {
   return 3;
 }
 
+export async function mapFetchCoordinates() {
+  const url = assetsGetURL('geo/countries.json');
+  const res = await fetchExec<CoordinatesDataItem[]>({ url });
+  const byCode = new Map();
+  if (res.ok) {
+    res.body.forEach((item) => {
+      byCode.set(item.code, [+item.lat, +item.lon]);
+    });
+    dispatch('SET_MAP', {
+      byCode,
+    });
+  }
+}
+
 function reducer(
   state: State,
   action: { type: Action; payload: State },
@@ -89,6 +115,11 @@ function reducer(
         ...state,
         coordinates: action.payload.coordinates,
         zoom: action.payload.zoom,
+      };
+    case 'SET_MAP':
+      return {
+        ...state,
+        byCode: action.payload.byCode,
       };
     default:
       return state;

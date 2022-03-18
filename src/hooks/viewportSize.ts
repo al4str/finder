@@ -1,4 +1,9 @@
 import { Dispatch, SetStateAction, useState, useEffect } from 'react';
+import { eventsOptions } from '@/utils/events';
+
+const E_OPT = eventsOptions({
+  passive: true,
+});
 
 export interface ViewportSize {
   width: number;
@@ -9,6 +14,29 @@ export interface ViewportSize {
 }
 
 const subscribersSet = new Set<Dispatch<SetStateAction<ViewportSize>>>();
+
+const visualViewport: null | VisualViewport = 'visualViewport' in window
+  ? window.visualViewport
+  : null;
+
+export const viewportInit = attachListener;
+
+export function viewportGetSize(): ViewportSize {
+  const nextSize = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    visualWidth: window.innerWidth,
+    visualHeight: window.innerHeight,
+    visualScale: 1,
+  };
+  if (visualViewport instanceof VisualViewport) {
+    nextSize.visualWidth = visualViewport.width;
+    nextSize.visualHeight = visualViewport.height;
+    nextSize.visualScale = visualViewport.scale;
+  }
+
+  return nextSize;
+}
 
 export function useViewportSize(): ViewportSize {
   const [viewportSize, setViewportSize] = useState<ViewportSize>({
@@ -34,6 +62,16 @@ export function useViewportSize(): ViewportSize {
   return viewportSize;
 }
 
+function attachListener() {
+  handleResize();
+  if (visualViewport && 'addEventListener' in visualViewport) {
+    visualViewport.addEventListener('resize', handleResize, E_OPT);
+  }
+  else {
+    window.addEventListener('resize', handleResize, E_OPT);
+  }
+}
+
 function handleResize(): void {
   const nextSize = viewportGetSize();
   publishSize(nextSize);
@@ -48,36 +86,4 @@ function publishSize(size: ViewportSize): void {
       return size;
     });
   });
-}
-
-const visualViewport: null | VisualViewport = 'visualViewport' in window
-  ? window.visualViewport
-  : null;
-
-function attachListener() {
-  if (visualViewport && 'addEventListener' in visualViewport) {
-    visualViewport.addEventListener('resize', handleResize, { passive: true });
-  }
-  else {
-    window.addEventListener('resize', handleResize, { passive: true });
-  }
-}
-
-attachListener();
-
-export function viewportGetSize(): ViewportSize {
-  const nextSize = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    visualWidth: window.innerWidth,
-    visualHeight: window.innerHeight,
-    visualScale: 1,
-  };
-  if (visualViewport !== null) {
-    nextSize.visualWidth = visualViewport.width;
-    nextSize.visualHeight = visualViewport.height;
-    nextSize.visualScale = visualViewport.scale;
-  }
-
-  return nextSize;
 }

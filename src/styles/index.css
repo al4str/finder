@@ -26,16 +26,21 @@
     overflow-y: scroll;
   }
 
-  #root {
-    height: 100%;
-  }
-
   *:focus {
     @apply outline-none;
   }
 
   *:focus-visible {
     @apply outline-none ring-2 ring-blue-400 dark:ring-blue-300;
+  }
+
+  /* https://github.com/postcss/postcss-100vh-fix#postcss-100vh-fix */
+  .ios {
+    height: -webkit-fill-available;
+  }
+
+  .ios body {
+    min-height: -webkit-fill-available;
   }
 }
 
@@ -45,6 +50,7 @@
   }
 
   .appearance-none {
+    /* autoprefixer: ignore next */
     -webkit-appearance: none;
     appearance: none;
   }
@@ -77,6 +83,13 @@
   }
   .lock::selection {
     background: transparent;
+  }
+
+  .min-h-screen-true {
+    min-height: 100vh;
+  }
+  .ios .min-h-screen-true {
+    min-height: -webkit-fill-available;
   }
 
   .tap-highlight {
@@ -178,6 +191,6 @@
   }
 
   .message {
-    @apply py-6 text-sm text-center text-gray-600 dark:text-zinc-500 sm:text-base;
+    @apply py-6 text-sm text-center text-gray-700 dark:text-zinc-300 sm:text-base;
   }
 }

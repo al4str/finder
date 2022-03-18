@@ -159,7 +159,7 @@ export function CountryPhotos(props: Props): JSX.Element {
   return (
     <div
       className={clsx(
-        'relative select-none pointer-events-none touch-pan-y',
+        'relative z-0 select-none pointer-events-none touch-pan-y',
         className,
       )}
       ref={elRef}
@@ -169,7 +169,7 @@ export function CountryPhotos(props: Props): JSX.Element {
     >
       <div className="w-full h-full overflow-hidden">
         <ul
-          className="flex w-full h-full pointer-events-auto accelerate"
+          className="flex w-full h-full pointer-events-auto accelerate duration-300 ease-[cubic-bezier(0,0,0,1)]"
           ref={listRef}
         >
           {items.map((item, index) => (

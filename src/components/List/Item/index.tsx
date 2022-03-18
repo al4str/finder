@@ -53,7 +53,7 @@ export function ListItem(props: Props): JSX.Element {
     >
       <span className="flex items-center">
         <span className="min-w-0 mr-2 sm:mr-3">
-          <span className="heading text-lg sm:text-2xl">{name}</span>
+          <span className="heading text-lg sm:text-2xl truncate">{name}</span>
           <span className="flex items-center">
             <FavoritesAction
               className="shrink-0 mr-0.5 sm:mr-1.5"

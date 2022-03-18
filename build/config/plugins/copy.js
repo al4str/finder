@@ -17,6 +17,12 @@ export async function configGetPluginCopy(params) {
         toType: 'template',
         noErrorOnMissing: false,
       },
+      {
+        from: './src/public/geo/*',
+        to: 'geo/[name].[contenthash:8][ext]',
+        toType: 'template',
+        noErrorOnMissing: false,
+      },
     ],
   });
 }

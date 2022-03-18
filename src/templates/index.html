@@ -20,13 +20,20 @@
   {{linkTags}}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   {{prefetchTags}}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Average&display=swap" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Average&display=swap" crossorigin onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Interdisplay=swap" crossorigin onload="this.onload=null;this.rel='stylesheet'">
   {{preloadTags}}
   {{styleTags}}
   {{assetsMap}}
   {{chunksMap}}
   {{nomoduleTags}}
+  <script>
+    (function() {
+      if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+        document.documentElement.classList.add("ios");
+      }
+    })();
+  </script>
   <script>
     (function() {
       var root = document.documentElement;
@@ -47,47 +54,45 @@
       }
     })();
   </script>
-  <script type="module" id="loader">
+  <script id="loader">
     (function() {
-      document.addEventListener("DOMContentLoaded", function() {
-        var timeout = 2500;
-        var scripts = JSON.parse(`{{moduleItems}}`);
-        var initialScript = document.getElementById("loader");
-        scripts.forEach(function(tag, index) {
-          const script = tag.attributes;
-          var isMain = /\/main\./.test(script.src);
-          var minimumRemainingTime = isMain
-            ? 40
-            : 15;
-          var el = document.createElement("script");
-          el.src = script.src;
-          el.defer = true;
-          el.onload = function() {
-            if (initialScript) {
-              initialScript.parentNode.removeChild(initialScript);
-              initialScript = null;
-            }
-          };
-          if ("requestIdleCallback" in window) {
-            var deadlineTimestamp = Date.now() + timeout;
-            window.requestIdleCallback(function run(deadline) {
-              if (
-                deadline.timeRemaining() > minimumRemainingTime
-                || deadlineTimestamp < Date.now()
-                || deadline.didTimeout
-              ) {
-                document.body.appendChild(el);
-              } else {
-                window.requestIdleCallback(run, { timeout });
-              }
-            }, { timeout });
-          } else {
-            setTimeout(function() {
-              document.body.appendChild(el);
-            }, index * 40)
+      var timeout = 2500;
+      var scripts = JSON.parse(`{{moduleItems}}`);
+      var initialScript = document.getElementById("loader");
+      scripts.forEach(function(tag, index) {
+        const script = tag.attributes;
+        var isMain = /\/main\./.test(script.src);
+        var minimumRemainingTime = isMain
+          ? 40
+          : 15;
+        var el = document.createElement("script");
+        el.src = script.src;
+        el.type = "module";
+        el.onload = function() {
+          if (initialScript) {
+            initialScript.parentNode.removeChild(initialScript);
+            initialScript = null;
           }
-        })
-      })
+        };
+        if ("requestIdleCallback" in window) {
+          var deadlineTimestamp = Date.now() + timeout;
+          window.requestIdleCallback(function run(deadline) {
+            if (
+              deadline.timeRemaining() > minimumRemainingTime
+              || deadlineTimestamp < Date.now()
+              || deadline.didTimeout
+            ) {
+              document.head.appendChild(el);
+            } else {
+              window.requestIdleCallback(run, { timeout });
+            }
+          }, { timeout });
+        } else {
+          setTimeout(function() {
+            document.head.appendChild(el);
+          }, index * 40)
+        }
+      });
     })();
   </script>
 </head>

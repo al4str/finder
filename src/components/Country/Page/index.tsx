@@ -11,6 +11,7 @@ import { CountryNotFound } from '@/components/Country/NotFound';
 import { CountryDetails } from '@/components/Country/Details';
 import { FavoritesAction } from '@/components/Favorites/Action';
 import { CountryPhotos } from '@/components/Country/Photos';
+import { shuffle } from '@/utils/shuffle';
 
 interface DetailDataItem {
   name: string;
@@ -28,7 +29,6 @@ export function CountryPage(): JSX.Element {
   const name = item?.name?.common || '';
   const flag = item?.flags?.svg || item?.flags?.png || '';
   const hasFlag = pending || Boolean(flag);
-  const countryPhotos = photos.get(name) || [];
 
   const details = useMemo<DetailDataItem[]>(() => {
     return [
@@ -280,6 +280,9 @@ export function CountryPage(): JSX.Element {
       },
     ].filter((detail) => Boolean(detail.value));
   }, [item]);
+  const countryPhotos = useMemo(() => {
+    return shuffle(photos.get(name) || []);
+  }, [photos, name]);
 
   useEffect(() => {
     if (code) {
@@ -293,10 +296,10 @@ export function CountryPage(): JSX.Element {
   }, [name]);
   useEffect(() => {
     if (ready && item) {
-      mapSetPosition(() => ({
+      mapSetPosition(item.cca2, {
         coordinates: item.latlng,
         zoom: mapCalculateZoom(item.area),
-      }));
+      });
     }
   }, [ready, item]);
 

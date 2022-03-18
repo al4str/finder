@@ -20,7 +20,7 @@ export function MainLink(props: Props): JSX.Element {
   return (
     <div className={clsx(className)}>
       <Anchor
-        className="btn btn-full btn-blurred block p-2 rounded-lg sm:p-3"
+        className="btn btn-full btn-blurred block h-10 p-2 rounded-lg sm:h-12 sm:p-3"
         type="link"
         to={to}
       >

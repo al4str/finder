@@ -2,7 +2,6 @@ import {
   BrowserHistory,
   Location,
   Update,
-  To,
   createBrowserHistory,
 } from 'history';
 import { storeCreate } from '@/utils/store';
@@ -33,20 +32,6 @@ const {
 
 export function navigationGetHistory(): BrowserHistory {
   return HISTORY;
-}
-
-export function navigationGoBack(): void {
-  HISTORY.back();
-}
-
-type Updater = (currentLocation: Location) => To;
-
-export function navigationGoTo(to: To | Updater): void {
-  HISTORY.push(typeof to === 'function' ? to(HISTORY.location) : to);
-}
-
-export function navigationUpdateTo(to: To | Updater): void {
-  HISTORY.replace(typeof to === 'function' ? to(HISTORY.location) : to);
 }
 
 export function navigationMount(): void {
