@@ -181,6 +181,7 @@
   }
   .background-blurred {
     @apply bg-white/30 dark:bg-zinc-900/50;
+    /* autoprefixer: ignore next */
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
